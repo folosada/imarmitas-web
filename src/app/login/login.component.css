@@ -11,6 +11,10 @@
     margin: auto;
 }
 
+.main-card {    
+    height: 75%;
+}
+
 .title {    
     font-family: "Arial", sans-serif;  
     font-weight: bold;  
@@ -21,4 +25,31 @@
     background-color: #cc0000;
     color: white;
     font-weight: bold;    
+}
+
+.inputs {    
+    width: 100%
+}
+
+.buttons {
+    width: 110px;    
+}
+
+#cadastrar-button {
+    border: solid;
+    border-width: 1px;
+    border-color: #cc0000;
+    color: #cc0000;
+    float: left;
+}
+
+#entrar-button {
+    float: right;
+    background-color: #cc0000;
+}
+
+.senha-div {    
+    float: left;
+    font-size: 12px;
+    padding-top: 10px;
 }

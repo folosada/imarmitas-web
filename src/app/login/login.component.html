@@ -2,13 +2,31 @@
   <img width="48" height="48" src="./assets/marmita.png"/>
   iMarmitas
 </mat-toolbar>
-<div class="main">    
-  <mat-card>            
-      <mat-card-title class="title">                
-        Login
-      </mat-card-title>      
-      <mat-card-content>
-        Card content
-      </mat-card-content>
-  </mat-card>
-</div>
+<form>
+  <div class="main">    
+    <mat-card class="main-card">            
+        <mat-card-title class="title">                
+          Login
+        </mat-card-title>      
+        <mat-card-content>
+          <div style="display: inline-block">
+            <div>
+              <mat-form-field class="inputs">
+                <input id="user-input" matInput placeholder="Usuário">
+              </mat-form-field>
+              <mat-form-field class="inputs">
+                <input id="password-input" matInput placeholder="Senha">
+              </mat-form-field>
+            </div>
+            <div>
+              <button id="cadastrar-button" class="buttons" mat-button color="warn">Cadastrar</button>
+              <button id="entrar-button" class="buttons" mat-raised-button color="warn">Entrar</button>              
+            </div>        
+          </div>            
+          <div class="senha-div">            
+            <a href="www.google.com.br">Esqueceu sua senha?</a>
+          </div>
+        </mat-card-content>
+    </mat-card>
+  </div>
+</form>

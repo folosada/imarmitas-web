@@ -1,14 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { AuthGuard } from '../common/auth.guard';
-import { MatCardModule } from '@angular/material';
-import { MatToolbarModule } from '@angular/material';
 
+//Routes
 import { AppRoutes } from './app.route';
+import { RouterModule } from '@angular/router';
+
+//Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+
+//Services
+import { LoginService } from './service/login/login.service';
+
+// Material imports
+import { MatCardModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -21,11 +33,17 @@ import { LoginComponent } from './login/login.component';
       useHash: true
     }),
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
+    MatButtonModule
   ],
   exports: [
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     AuthGuard
