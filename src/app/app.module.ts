@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from '../common/auth.guard';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 //Routes
 import { AppRoutes } from './app.route';
@@ -10,9 +12,7 @@ import { RouterModule } from '@angular/router';
 //Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-
-//Services
-import { LoginService } from './service/login/login.service';
+import { SenhaComponent } from './senha/senha.component';
 
 // Material imports
 import { MatCardModule } from '@angular/material';
@@ -25,7 +25,8 @@ import { MatButtonModule } from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SenhaComponent
   ],
   imports: [
     BrowserModule,
@@ -37,13 +38,15 @@ import { MatButtonModule } from '@angular/material';
     MatInputModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule,
+    HttpModule
   ],
   exports: [
     MatCardModule,
     MatToolbarModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule    
   ],
   providers: [
     AuthGuard
