@@ -34,17 +34,14 @@ export class LoginComponent implements OnInit {
       this.errorMessage = "";      
       var status = this.loginService.validarLogin(this.userId, this.userPassword);      
       status.subscribe(
-        response => {
-          alert(response.id_token);
+        response => {          
           this.errorMessage = null;
           localStorage.setItem('id_token', response.id_token);
           localStorage.setItem('userId', this.userId);
           this.router.navigate(['inicio']);
         },
-        error => {
-          alert(error);
-          var errorMessage = JSON.parse(error.text());
-          alert(JSON.stringify(errorMessage));
+        error => {          
+          var errorMessage = JSON.parse(error.text());          
           if (errorMessage.result == "data_required"){
             this.errorMessage = "Dados necessários!";
           } else if (errorMessage.result == "invalid_user"){

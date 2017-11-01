@@ -1,0 +1,55 @@
+.main {    
+    width: 280px;
+    height: 280px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+
+.main-card {    
+    height: 90%;
+}
+
+.title {    
+    font-family: "Arial", sans-serif;  
+    font-weight: bold;  
+    color: #cc0000;
+}
+
+.toolbar {
+    background-color: #cc0000;
+    color: white;
+    font-weight: bold;    
+}
+
+.inputs {    
+    width: 100%
+}
+
+.buttons {
+    width: 110px;    
+}
+
+#voltar-button {
+    border: solid;
+    border-width: 1px;
+    border-color: #cc0000;
+    color: #cc0000;
+    float: left;
+}
+
+#confirmar-button {
+    float: right;
+    background-color: #cc0000;
+}
+
+.senha-div {    
+    float: left;
+    font-size: 12px;
+    padding-top: 10px;
+}

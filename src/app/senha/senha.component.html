@@ -1,3 +1,31 @@
-<p>
-  senha works!
-</p>
+<mat-toolbar class="toolbar">  
+  <img width="48" height="48" src="./assets/marmita.png"/>
+  La Fome
+</mat-toolbar>
+<div class="main">    
+  <mat-card class="main-card">            
+      <mat-card-title class="title">                
+        Recuperar senha
+      </mat-card-title>      
+      <mat-card-content>
+        <div style="display: inline-block">
+          <span style="color: red; font-size: 17px">{{errorMessage}}</span>
+          <div>
+            <mat-form-field class="inputs">
+              <input [(ngModel)]="userId" id="user-input" matInput placeholder="Usuário" value="">
+            </mat-form-field>
+            <mat-form-field class="inputs">
+              <input [(ngModel)]="userEmail" id="email-input" matInput placeholder="E-mail" value="">
+            </mat-form-field>
+            <mat-form-field class="inputs">
+              <input [(ngModel)]="userPassword" type="password" id="password-input" matInput placeholder="Nova senha" value="">
+            </mat-form-field>
+          </div>
+          <div>
+            <button (click)="voltar()" id="voltar-button" class="buttons" mat-button color="warn">Voltar</button>
+            <button (click)="alterarSenha()" id="confirmar-button" class="buttons" mat-raised-button color="warn">Confirmar</button>              
+          </div>        
+        </div>            
+      </mat-card-content>
+  </mat-card>
+</div>

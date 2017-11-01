@@ -11,5 +11,5 @@ export class AppComponent {
   constructor (private router: Router) { }
   ngOnInit() { }
   
-  title = 'iMarmitas';
+  title = 'La Fome';
 }

@@ -1,16 +1,54 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { MatCardModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
+import { LoginService } from '../service/login/login.service';
 
 @Component({
   selector: 'app-senha',
   templateUrl: './senha.component.html',
-  styleUrls: ['./senha.component.css']
+  styleUrls: ['./senha.component.css'],
+  providers: [LoginService]
 })
 export class SenhaComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  private errorMessage: string;
+  private userId: string;
+  private userEmail: string;
+  private userPassword: string;
+
+  constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
+  }
+
+  voltar() {
+    this.router.navigate(['/']);
+  }
+
+  alterarSenha() {
+    let values = {
+      userId: this.userId,
+      userEmail: this.userEmail,
+      userPassword: this.userPassword
+    }
+    var result = this.loginService.alterarSenha(values);
+    result.subscribe(
+      response => {
+        
+      },
+      error => {
+        var errorMessage = JSON.parse(error.text());          
+        if (errorMessage.result == "data_required"){
+          this.errorMessage = "Dados necessários!";
+        } else if (errorMessage.result == "invalid_user"){
+          this.errorMessage = "Usuário ou senha inválido!";
+        }  else {
+          this.errorMessage = "Ocorreu um erro :'(";
+        }
+      }
+    );
   }
 
 }
