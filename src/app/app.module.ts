@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SenhaComponent } from './senha/senha.component';
+import { CadastroRestauranteComponent } from './cadastro-restaurante/cadastro-restaurante.component';
 
 // Material imports
 import { MatCardModule } from '@angular/material';
@@ -21,12 +22,15 @@ import { MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SenhaComponent
+    SenhaComponent,
+    CadastroRestauranteComponent
   ],
   imports: [
     BrowserModule,
@@ -40,13 +44,17 @@ import { MatButtonModule } from '@angular/material';
     NoopAnimationsModule,
     MatButtonModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    MatSnackBarModule,
+    MatFormFieldModule
   ],
   exports: [
     MatCardModule,
     MatToolbarModule,
     MatInputModule,
-    MatButtonModule    
+    MatButtonModule,
+    MatSnackBarModule,
+    MatFormFieldModule
   ],
   providers: [
     AuthGuard

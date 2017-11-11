@@ -1,0 +1,70 @@
+<mat-toolbar class="toolbar">  
+  <img width="48" height="48" src="./assets/marmita.png"/>
+  La Fome
+</mat-toolbar>
+<div class="card-form">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="title title-font">Cadastro de Restaurante</mat-card-title>
+    </mat-card-header>
+    <div>
+      <mat-card-content>
+        <mat-form-field class="inputs">
+          <input matInput [(ngModel)]="razaoSocial" maxlength="150" required placeholder="Razão Social">
+        </mat-form-field>      
+        <mat-form-field class="inputs">
+          <input matInput [(ngModel)]="nomeFantasia" maxlength="150" required placeholder="Nome Fantasia">
+        </mat-form-field>      
+        <mat-form-field class="inputs">
+          <input matInput [(ngModel)]="cnpj" type="number" maxLength="14" required placeholder="CNPJ">
+          <mat-hint align="start">Somente números</mat-hint>
+        </mat-form-field>      
+        <br>
+        <mat-form-field class="inputs">
+          <input matInput [(ngModel)]="logradouro" maxlength="255" required placeholder="Logradouro">
+        </mat-form-field>
+        <mat-form-field style="width: 10%; padding-right: 2%">
+          <input matInput [(ngModel)]="numero" type="number" required placeholder="Número">          
+        </mat-form-field>
+        <mat-form-field style="width: 28%; padding-right: 5%">
+          <input matInput [(ngModel)]="complemento" maxlength="100" placeholder="Complemento">
+        </mat-form-field>
+        <mat-form-field class="inputs">
+          <input matInput [(ngModel)]="cidade" maxlength="150" required placeholder="Cidade">
+        </mat-form-field>
+        <mat-form-field style="width: 28%; padding-right: 2%">
+          <input matInput [(ngModel)]="estado" maxlength="60" required placeholder="Estado">
+        </mat-form-field>
+        <mat-form-field style="width: 10%; padding-right: 5%">
+          <input matInput [(ngModel)]="cep" maxlength="10" required placeholder="CEP">
+          <mat-hint align="start">Somente números</mat-hint>
+        </mat-form-field>
+        <mat-form-field style="width: 20%; padding-right: 2%">
+          <input matInput [(ngModel)]="telefone" maxlength="14" required placeholder="Telefone">                     
+          <mat-hint align="start">(99)99999-9999</mat-hint>
+        </mat-form-field>      
+      </mat-card-content>      
+    </div>
+    <br>
+    <mat-card-header>
+      <mat-card-title class="title subtitle-font">Dados do Usuário</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field style="width: 18%; padding-right: 2%">
+        <input matInput [(ngModel)]="usuario" maxlength="32" required placeholder="Usuário">        
+      </mat-form-field>  
+      <mat-form-field style="width: 20%; padding-right: 5%">
+        <input matInput [(ngModel)]="senha" type="password" maxlength="300" required placeholder="Senha">        
+      </mat-form-field>  
+      <mat-form-field class="inputs">
+        <input matInput [(ngModel)]="email" maxlength="150" required placeholder="E-mail">
+      </mat-form-field>     
+    </mat-card-content>
+    <div class="buttons">    
+      <mat-card-actions>
+        <button (click)="salvarRestaurante()" id="salvar-button" mat-raised-button>Salvar</button> 
+        <button id="cancelar-button" mat-raised-button>Cancelar</button>                   
+      </mat-card-actions>
+    </div>      
+  </mat-card>
+</div>

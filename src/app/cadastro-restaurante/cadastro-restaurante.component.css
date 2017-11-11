@@ -1,0 +1,23 @@
+.inputs {
+    width: 40%;
+    padding-right: 5%;
+}
+
+.title-font {
+    font-size: 150%;
+}
+
+.subtitle-font {
+    font-size: 120%;
+}
+
+#salvar-button {    
+    float: right;
+    background-color: #cc0000;
+    color: white;
+    font-style: bold;    
+}
+
+#cancelar-button {
+    float: right;
+}

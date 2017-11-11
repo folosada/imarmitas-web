@@ -15,18 +15,6 @@
     height: 80%;
 }
 
-.title {    
-    font-family: "Arial", sans-serif;  
-    font-weight: bold;  
-    color: #cc0000;
-}
-
-.toolbar {
-    background-color: #cc0000;
-    color: white;
-    font-weight: bold;    
-}
-
 .inputs {    
     width: 100%
 }
