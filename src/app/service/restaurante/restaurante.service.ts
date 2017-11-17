@@ -6,19 +6,15 @@ import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class LoginService {
+export class RestauranteService {
 
   constructor(public http: Http, public xsrfStrategy: XSRFStrategy) { }
 
-  public validarLogin(userId, userPassword) : Observable<any> {    
+  public gravarRestaurante(params): Observable<any> {
     contentHeaders.delete('token');
     contentHeaders.append('token', localStorage.getItem('id_token'));
-    let body = JSON.stringify({ userId, userPassword });    
-    return this.http.post(environment.serverUrl + '/login', body, { headers: contentHeaders });
+    let body = JSON.stringify(params);    
+    return this.http.post(environment.serverUrl + '/restaurante/salvar', body, { headers: contentHeaders });
   }
 
-  public alterarSenha(values) : Observable<any> {
-    let body = JSON.stringify(values);    
-    return this.http.post(environment.serverUrl + '/alterarSenha', body, { headers: contentHeaders });
-  }
 }

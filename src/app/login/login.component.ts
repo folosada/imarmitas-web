@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.router.navigate(['inicio']);
     if (this.userId == "") {
       this.errorMessage = "Favor informar o usuário!";
     } else if (this.userPassword == "") {

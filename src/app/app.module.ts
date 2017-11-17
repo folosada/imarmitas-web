@@ -24,13 +24,20 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { MatDialogModule } from '@angular/material';
+import { DialogComponent } from './dialog/dialog.component';
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SenhaComponent,
-    CadastroRestauranteComponent
+    CadastroRestauranteComponent,
+    FileUploadComponent,
+    DialogComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +53,8 @@ import { MatFormFieldModule } from '@angular/material';
     FormsModule,
     HttpModule,
     MatSnackBarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule
   ],
   exports: [
     MatCardModule,
@@ -54,11 +62,14 @@ import { MatFormFieldModule } from '@angular/material';
     MatInputModule,
     MatButtonModule,
     MatSnackBarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatDialogModule,
+    DialogComponent
   ],
   providers: [
     AuthGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent]
 })
 export class AppModule { }

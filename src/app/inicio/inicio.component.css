@@ -1,0 +1,22 @@
+.buttons {
+    width: 110px;      
+    color: white;  
+    border-radius: 2%;
+}
+
+.card-content {
+    background-color: #cc0000;
+    border-radius: 10%;
+    height: 65%;
+    width: 100%;    
+    position: relative;
+}
+
+mat-card {
+    width: 200px;
+    height: 250px;
+}
+
+mat-card-actions {
+    position: relative;
+}
