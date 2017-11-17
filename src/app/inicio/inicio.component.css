@@ -2,21 +2,45 @@
     width: 110px;      
     color: white;  
     border-radius: 2%;
+    margin-left: 55px;    
 }
 
 .card-content {
     background-color: #cc0000;
-    border-radius: 10%;
-    height: 65%;
+    border-radius: 2%;
+    height: 60%;
     width: 100%;    
     position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: -15px;
 }
 
 mat-card {
     width: 200px;
     height: 250px;
+    display: inline-block;
 }
 
 mat-card-actions {
     position: relative;
+    margin-left: 45px;
+}
+
+.title-inicio {
+    text-align: center;
+}
+
+.div-master {
+    display: inline-block;
+    width: 1020px;
+    height: 320px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
 }
