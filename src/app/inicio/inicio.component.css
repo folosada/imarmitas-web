@@ -13,13 +13,23 @@
     position: relative;
     padding-left: 15px;
     padding-right: 15px;
-    margin-left: -15px;
+    margin-left: -15px;    
+}
+
+.mat-card-content>:first-child {
+    margin-top: 11px;
+    margin-left: 43px;
 }
 
 mat-card {
     width: 200px;
     height: 250px;
     display: inline-block;
+}
+
+.card-restaurant {
+    width: 958px;
+    height: 50px;
 }
 
 mat-card-actions {
@@ -33,7 +43,7 @@ mat-card-actions {
 
 .div-master {
     display: inline-block;
-    width: 1020px;
+    width: 1010px;
     height: 320px;
 
     position: absolute;

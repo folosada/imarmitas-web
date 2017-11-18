@@ -13,9 +13,9 @@ import { LoginService } from '../service/login/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  private errorMessage: string;
-  private userId: string;
-  private userPassword: string;
+  errorMessage: string;
+  userId: string;
+  userPassword: string;
 
   constructor(private router: Router, private loginService: LoginService) { }
 

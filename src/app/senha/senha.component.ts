@@ -14,10 +14,10 @@ import { LoginService } from '../service/login/login.service';
 })
 export class SenhaComponent implements OnInit {
 
-  private errorMessage: string;
-  private userId: string;
-  private userEmail: string;
-  private userPassword: string;
+  errorMessage: string;
+  userId: string;
+  userEmail: string;
+  userPassword: string;
 
   constructor(private router: Router, private loginService: LoginService, public snackBar: MatSnackBar) { }
 

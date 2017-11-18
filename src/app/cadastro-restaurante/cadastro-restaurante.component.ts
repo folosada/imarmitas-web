@@ -18,25 +18,25 @@ import { Router } from '@angular/router';
 })
 export class CadastroRestauranteComponent implements OnInit {
 
-  private razaoSocial: string;
-  private nomeFantasia: string;
-  private cnpj: string;
-  private logradouro: string;
-  private numero: number;
-  private complemento: string;
-  private cidade: string;
-  private estado: string;
-  private cep: string;
-  private telefone: string;
-  private usuario: string;
-  private senha: string;
-  private email: string;
-  private file: string;
+  razaoSocial: string;
+  nomeFantasia: string;
+  cnpj: string;
+  logradouro: string;
+  numero: number;
+  complemento: string;
+  cidade: string;
+  estado: string;
+  cep: string;
+  telefone: string;
+  usuario: string;
+  senha: string;
+  email: string;
+  file: string;
 
-  private cnpjValidate: CNPJErrorStateMatcher;
-  private cepValidate: CEPErrorStateMatcher;
-  private telefoneValidate: TelefoneErrorStateMatcher;
-  private emailValidate: EmailErrorStateMatcher;
+  cnpjValidate: CNPJErrorStateMatcher;
+  cepValidate: CEPErrorStateMatcher;
+  telefoneValidate: TelefoneErrorStateMatcher;
+  emailValidate: EmailErrorStateMatcher;
 
   @ViewChild(FileUploadComponent) fileUpload;
 
