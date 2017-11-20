@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -7,13 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  nomeFantasia: string;
+
+  constructor(private router: Router) { 
+    this.nomeFantasia = "Restaurante";
+  }
 
   ngOnInit() {
   }
 
-  entrar() {
-    alert("oi")
+  entrar(tela) {
+    switch (tela) {
+      case 1: this.router.navigate(['/cadastro']); break;
+      case 2: this.router.navigate(['/cardapio']); break;
+      case 3: this.router.navigate(['/pedido']); break;
+      case 4: this.router.navigate(['/relatorio']); break;
+    }
   }
 
 }

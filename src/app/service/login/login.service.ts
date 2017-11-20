@@ -12,13 +12,13 @@ export class LoginService {
 
   public validarLogin(login, senha) : Observable<any> {    
     //contentHeaders.delete('token');
-    //contentHeaders.append('token', localStorage.getItem('id_token'));
+    //contentHeaders.append('token', localStorage.getItem('id_token'));    
     let body = JSON.stringify({ login, senha });    
-    return this.http.post(environment.serverUrl + '/usuario/validarLogin', body, { headers: contentHeaders });
+    return this.http.post(environment.serverUrl + '/restaurante/validarLogin', body, { headers: contentHeaders });
   }
 
   public alterarSenha(values) : Observable<any> {
     let body = JSON.stringify(values);    
-    return this.http.post(environment.serverUrl + '/alterarSenha', body, { headers: contentHeaders });
+    return this.http.post(environment.serverUrl + '/usuario/alterarSenha', body, { headers: contentHeaders });
   }
 }

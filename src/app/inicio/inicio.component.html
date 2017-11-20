@@ -4,8 +4,15 @@
 </mat-toolbar>
 <div class="div-master">
   <mat-card class="card-restaurant">
-
+    <mat-card-title class="card-title-restaurant">
+      {{nomeFantasia}}
+    </mat-card-title>
+    <mat-card-content>
+      {{nomeFantasia}}
+    </mat-card-content>
   </mat-card>
+  <br>
+  <br>
   <mat-card>
     <mat-card-title class="title title-inicio">
       Meu Cadastro
@@ -14,7 +21,7 @@
       <img src="./assets/register.svg" style="width: 128px; height: 128px"/>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="entrar()" id="meu-cadastro-button" class="buttons" mat-raised-button color="warn">Acessar</button>
+      <button (click)="entrar(1)" id="meu-cadastro-button" class="buttons" mat-raised-button color="warn">Acessar</button>
     </mat-card-actions>
   </mat-card>
   <mat-card>
@@ -25,7 +32,7 @@
       <img src="./assets/menu.svg" style="width: 128px; height: 128px"/>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="entrar()" id="meu-cadastro-button" class="buttons" mat-raised-button color="warn">Acessar</button>
+      <button (click)="entrar(2)" id="meu-cadastro-button" class="buttons" mat-raised-button color="warn">Acessar</button>
     </mat-card-actions>
   </mat-card>
   <mat-card>
@@ -36,7 +43,7 @@
       <img src="./assets/order.svg" style="width: 128px; height: 128px"/>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="entrar()" id="meu-cadastro-button" class="buttons" mat-raised-button color="warn">Acessar</button>
+      <button (click)="entrar(3)" id="meu-cadastro-button" class="buttons" mat-raised-button color="warn">Acessar</button>
     </mat-card-actions>
   </mat-card>
   <mat-card>
@@ -47,7 +54,7 @@
       <img src="./assets/report.svg" style="width: 128px; height: 128px"/>
     </mat-card-content>
     <mat-card-actions>
-      <button (click)="entrar()" id="meu-cadastro-button" class="buttons" mat-raised-button color="warn">Acessar</button>
+      <button (click)="entrar(4)" id="meu-cadastro-button" class="buttons" mat-raised-button color="warn">Acessar</button>
     </mat-card-actions>
   </mat-card>
 </div>

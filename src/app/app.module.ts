@@ -28,6 +28,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatDialogModule } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
 import { InicioComponent } from './inicio/inicio.component';
+import { CardapioComponent } from './cardapio/cardapio.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { InicioComponent } from './inicio/inicio.component';
     CadastroRestauranteComponent,
     FileUploadComponent,
     DialogComponent,
-    InicioComponent
+    InicioComponent,
+    CardapioComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Observer } from 'rxjs/Rx';
 import { DialogComponent } from './dialog/dialog.component';
+
+import * as CryptoJS from 'crypto-js';
 
 @Injectable()
 export class UtilsService {
@@ -42,5 +44,14 @@ export class UtilsService {
     dialogRef.componentInstance.showCancel = showCancel;
 
     return dialogRef.afterClosed();
+  }
+
+  encriptPassword(password) {
+    return CryptoJS.AES.encrypt(password, 'iMarmitas');
+  }
+
+  convertImageToBase64(file: FileReader) {    
+    var fileBase64 = CryptoJS.enc.Base64.parse("ASD");
+    alert(fileBase64);
   }
 }

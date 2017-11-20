@@ -32,6 +32,10 @@ mat-card {
     height: 50px;
 }
 
+.card-title-restaurant {
+    height: 30px;    
+}
+
 mat-card-actions {
     position: relative;
     margin-left: 45px;

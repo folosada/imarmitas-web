@@ -98,25 +98,14 @@ export class CadastroRestauranteComponent implements OnInit {
       telefone: this.telefone,
       usuario: {
         login: this.usuario,
-        senha: this.senha,
+        senha: this.utils.encriptPassword(this.senha),
         email: this.email
       }
     }
+    this.utils.convertImageToBase64(this.fileUploadComponent.upload(this.fileUpload));
     this.restauranteService.gravarRestaurante(params).subscribe(
-      response => {
-        /*
-        this.fileUploadComponent.upload(this.fileUpload, 
-          () => {
-            if (this['status'] == 200) {
-                const responseText = this['responseText'];
-                const files = JSON.parse(responseText);
-                //todo: emit event
-            } else {
-              //todo: error handling
-            }
-          }
-        );
-        */
+      response => {        
+        this.utils.convertImageToBase64(this.fileUploadComponent.upload(this.fileUpload));        
         this.openSnackBar();
         this.router.navigate(['/inicio']);
       },
@@ -191,7 +180,7 @@ export class CadastroRestauranteComponent implements OnInit {
   cancelar() {
     this.utils.showDialog("Atenção!", "Tem certeza que deseja cancelar?", true).subscribe((response) => {
       if (response) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/inicio']);
       }
     });
   }

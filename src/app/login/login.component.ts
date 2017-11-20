@@ -4,12 +4,13 @@ import { MatCardModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { LoginService } from '../service/login/login.service';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [LoginService]
+  providers: [LoginService, UtilsService]
 })
 export class LoginComponent implements OnInit {
 
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   userId: string;
   userPassword: string;
 
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService, private utils: UtilsService) { }
 
   ngOnInit() {
     this.errorMessage = "";
@@ -32,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.errorMessage = "Favor informar a senha!";
     } else {
       this.errorMessage = "";      
-      var status = this.loginService.validarLogin(this.userId, this.userPassword);      
+      var status = this.loginService.validarLogin(this.userId, this.utils.encriptPassword(this.userPassword));      
       status.subscribe(
         response => {          
           this.errorMessage = null;

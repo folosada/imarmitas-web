@@ -32,15 +32,13 @@ export class FileUploadComponent implements OnInit {
     }  
   }
 
-  public upload(fileInput, onLoad) {
+  public upload(fileInput) {
     const fileBrowser = fileInput.fileUpload.nativeElement;
     if (fileBrowser.files && fileBrowser.files[0]) {
-      const formData = new FormData();
-      formData.append('files', fileBrowser.files[0]);
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', environment.serverUrl + environment.pathImage, true);
-      xhr.onload = onLoad;
-      xhr.send(formData);
+      let file: FileReader;
+      file = new FileReader();      
+      file.readAsBinaryString(fileBrowser.files[0]);
+      return file;
     }
   }
 
