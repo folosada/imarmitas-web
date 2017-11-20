@@ -5,12 +5,13 @@ import { MatToolbarModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { LoginService } from '../service/login/login.service';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-senha',
   templateUrl: './senha.component.html',
   styleUrls: ['./senha.component.css'],
-  providers: [LoginService, MatSnackBar]
+  providers: [LoginService, MatSnackBar, UtilsService]
 })
 export class SenhaComponent implements OnInit {
 
@@ -19,7 +20,7 @@ export class SenhaComponent implements OnInit {
   userEmail: string;
   userPassword: string;
 
-  constructor(private router: Router, private loginService: LoginService, public snackBar: MatSnackBar) { }
+  constructor(private router: Router, private loginService: LoginService, public snackBar: MatSnackBar, private utils: UtilsService) { }
 
   ngOnInit() {
   }
@@ -32,7 +33,7 @@ export class SenhaComponent implements OnInit {
     let values = {
       userId: this.userId,
       userEmail: this.userEmail,
-      userPassword: this.userPassword
+      userPassword: this.utils.encriptPassword(this.userPassword);
     }
     var result = this.loginService.alterarSenha(values);
     result.subscribe(
