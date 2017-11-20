@@ -101,11 +101,10 @@ export class CadastroRestauranteComponent implements OnInit {
         senha: this.utils.encriptPassword(this.senha),
         email: this.email
       }
-    }
-    this.utils.convertImageToBase64(this.fileUploadComponent.upload(this.fileUpload));
+    }  
     this.restauranteService.gravarRestaurante(params).subscribe(
       response => {        
-        this.utils.convertImageToBase64(this.fileUploadComponent.upload(this.fileUpload));        
+        //this.utils.convertImageToBase64(this.fileUploadComponent.upload(this.fileUpload));        
         this.openSnackBar();
         this.router.navigate(['/inicio']);
       },
