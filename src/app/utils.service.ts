@@ -47,7 +47,7 @@ export class UtilsService {
   }
 
   encriptPassword(password) {    
-    return CryptoJS.AES.encrypt(password, 'iMarmitas').ciphertext;
+    return CryptoJS.AES.encrypt(password, 'iMarmitas').ciphertext.toString();
   }
 
   convertImageToBase64(file: FileReader) {    
