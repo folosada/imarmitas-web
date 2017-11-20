@@ -33,7 +33,7 @@ export class SenhaComponent implements OnInit {
     let values = {
       userId: this.userId,
       userEmail: this.userEmail,
-      userPassword: this.utils.encriptPassword(this.userPassword);
+      userPassword: this.utils.encriptPassword(this.userPassword)
     }
     var result = this.loginService.alterarSenha(values);
     result.subscribe(
