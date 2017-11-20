@@ -46,8 +46,8 @@ export class UtilsService {
     return dialogRef.afterClosed();
   }
 
-  encriptPassword(password) {
-    return CryptoJS.AES.encrypt(password, 'iMarmitas');
+  encriptPassword(password) {    
+    return CryptoJS.AES.encrypt(password, 'iMarmitas').ciphertext;
   }
 
   convertImageToBase64(file: FileReader) {    
