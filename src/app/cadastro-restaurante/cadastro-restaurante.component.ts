@@ -87,17 +87,24 @@ export class CadastroRestauranteComponent implements OnInit {
       razaoSocial: this.razaoSocial,
       nomeFantasia: this.nomeFantasia,
       cnpj: this.cnpj,
-      logradouro: this.logradouro,
-      cidade: this.cidade,
-      estado: this.estado,
-      cep: this.cep,
+      endereco: {
+        logradouro: this.logradouro,
+        cidade: this.cidade,
+        estado: this.estado,
+        cep: this.cep,
+        numero: this.numero,
+        complemento: this.complemento        
+      },
       telefone: this.telefone,
-      usuario: this.usuario,
-      senha: this.senha,
-      email: this.email
+      usuario: {
+        login: this.usuario,
+        senha: this.senha,
+        email: this.email
+      }
     }
     this.restauranteService.gravarRestaurante(params).subscribe(
       response => {
+        /*
         this.fileUploadComponent.upload(this.fileUpload, 
           () => {
             if (this['status'] == 200) {
@@ -109,8 +116,9 @@ export class CadastroRestauranteComponent implements OnInit {
             }
           }
         );
+        */
         this.openSnackBar();
-        this.router.navigate(['/']);
+        this.router.navigate(['/inicio']);
       },
       error => {
         var errorMessage = JSON.parse(error.text());          

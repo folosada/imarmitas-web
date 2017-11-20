@@ -43,7 +43,7 @@
         </mat-form-field>
         <mat-form-field style="width: 10%; padding-right: 5%">
           <input matInput (focus)="focusCEP($event)" (blur)="blurCEP($event)" [errorStateMatcher]="cepValidate" [(ngModel)]="cep" maxlength="10" required placeholder="CEP">
-          <mat-hint align="start">Somente números</mat-hint>
+          <mat-hint align="start">99999-999</mat-hint>
           <mat-error>{{obterMensagemErro().CEP}}</mat-error>
         </mat-form-field>
         <mat-form-field style="width: 20%; padding-right: 2%">
