@@ -33,11 +33,15 @@ export class LoginComponent implements OnInit {
       this.errorMessage = "Favor informar a senha!";
     } else {
       this.errorMessage = "";      
-      var status = this.loginService.validarLogin(this.userId, this.utils.encriptPassword(this.userPassword));      
+      const params = {
+        "login": this.userId,
+        "senha": this.utils.encriptPassword(this.userPassword)
+      }
+      var status = this.loginService.validarLogin(params);      
       status.subscribe(
         response => {          
           this.errorMessage = null;
-          localStorage.setItem('id_token', response.id_token);
+          localStorage.setItem('id_token', response.headers._headers.get("authorization"));
           localStorage.setItem('userId', this.userId);
           this.router.navigate(['inicio']);
         },

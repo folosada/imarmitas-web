@@ -6,17 +6,14 @@ import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class RestauranteService {
+export class CardapioService {
 
   constructor(public http: Http, public xsrfStrategy: XSRFStrategy) { }
-
-  public gravarRestaurante(params): Observable<any> {
+  
+  public buscarCardapios(id_restaurante): Observable<any> {
     contentHeaders.delete('authorization');
-    if (params.id) {     
-      contentHeaders.append('authorization', localStorage.getItem('id_token'));
-    }
-    let body = JSON.stringify(params);    
-    return this.http.post(environment.serverUrl + '/restaurante/inserir', body, { headers: contentHeaders });
+    contentHeaders.append('authorization', localStorage.getItem('id_token'));            
+    return this.http.get(environment.serverUrl + '/cardapio/buscarTodos?id_restaurante=' + id_restaurante, { headers: contentHeaders });
   }
 
 }

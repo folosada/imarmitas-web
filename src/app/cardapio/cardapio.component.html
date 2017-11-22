@@ -1,3 +1,29 @@
-<p>
-  cardapio works!
-</p>
+<mat-toolbar class="toolbar">  
+  <img width="48" height="48" src="./assets/marmita.png"/>
+  La Fome
+</mat-toolbar>
+<div>
+  <mat-card>
+    <mat-card-title class="title">
+      Cardápios      
+      <button style="float: right; position: relative" mat-raised-button color="warn">Novo cardápio</button>      
+    </mat-card-title>    
+  </mat-card>
+</div>
+<br>
+<div *ngFor="let cardapio of cardapios">
+  <div style="padding: 2px">
+    <mat-card>
+      <mat-card-title>      
+        Data do cardápio: {{formataData(cardapio.dataCardapio)}}
+      </mat-card-title>
+      <mat-card-content>
+        Opções: {{cardapio.descricao}}
+      </mat-card-content>
+    </mat-card>
+</div>
+</div>
+<br>
+<div>  
+  <button (click)="voltar()" style="float: right; position: relative" mat-raised-button>Voltar</button>            
+</div>

@@ -10,10 +10,8 @@ export class LoginService {
 
   constructor(public http: Http, public xsrfStrategy: XSRFStrategy) { }
 
-  public validarLogin(login, senha) : Observable<any> {    
-    //contentHeaders.delete('token');
-    //contentHeaders.append('token', localStorage.getItem('id_token'));    
-    let body = JSON.stringify({ login, senha });    
+  public validarLogin(params) : Observable<any> {            
+    const body = JSON.stringify(params);    
     return this.http.post(environment.serverUrl + '/restaurante/validarLogin', body, { headers: contentHeaders });
   }
 
