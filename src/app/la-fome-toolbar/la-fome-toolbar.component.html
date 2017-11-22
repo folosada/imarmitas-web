@@ -1,0 +1,5 @@
+<mat-toolbar class="toolbar">  
+  <img width="48" height="48" src="./assets/marmita.png"/>
+  La Fome
+  <button *ngIf="isLogged()" (click)="doLogout()" style="float: right" mat-button>Logout</button>
+</mat-toolbar>

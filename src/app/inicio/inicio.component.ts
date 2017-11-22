@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LaFomeToolbarComponent } from '../la-fome-toolbar/la-fome-toolbar.component';
 
 @Component({
   selector: 'app-inicio',

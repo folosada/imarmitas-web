@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CardapioService } from '../service/cardapio/cardapio.service';
+import { LaFomeToolbarComponent } from '../la-fome-toolbar/la-fome-toolbar.component';
 
 @Component({
   selector: 'app-cardapio',

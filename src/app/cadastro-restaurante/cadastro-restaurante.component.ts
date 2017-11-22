@@ -8,7 +8,8 @@ import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { RestauranteService } from '../service/restaurante/restaurante.service';
 import { MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LaFomeToolbarComponent } from '../la-fome-toolbar/la-fome-toolbar.component';
 
 @Component({
   selector: 'app-cadastro-restaurante',
@@ -44,7 +45,8 @@ export class CadastroRestauranteComponent implements OnInit {
               private fileUploadComponent: FileUploadComponent,
               private restauranteService: RestauranteService,
               private snackBar: MatSnackBar,
-              private router: Router) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -182,6 +184,10 @@ export class CadastroRestauranteComponent implements OnInit {
         this.router.navigate(['/inicio']);
       }
     });
+  }
+
+  isLogged() {
+    return localStorage.getItem("id_token");
   }
 }
 

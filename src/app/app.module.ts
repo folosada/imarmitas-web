@@ -29,6 +29,7 @@ import { MatDialogModule } from '@angular/material';
 import { DialogComponent } from './dialog/dialog.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
+import { LaFomeToolbarComponent } from './la-fome-toolbar/la-fome-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CardapioComponent } from './cardapio/cardapio.component';
     FileUploadComponent,
     DialogComponent,
     InicioComponent,
-    CardapioComponent
+    CardapioComponent,
+    LaFomeToolbarComponent
   ],
   imports: [
     BrowserModule,
