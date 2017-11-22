@@ -1,15 +1,32 @@
 <app-la-fome-toolbar></app-la-fome-toolbar>
-<div>
-  <mat-card>
+<div class="card-form">
+  <mat-card class="card-form">
     <mat-card-title class="title">
       Cardápios      
-      <button style="float: right; position: relative" mat-raised-button color="warn">Novo cardápio</button>      
+      <button (click)="novoCardapio()" style="float: right; position: relative" mat-raised-button color="warn">Novo cardápio</button>      
     </mat-card-title>    
   </mat-card>
 </div>
-<br>
+<div *ngIf="inserting" class="card-form">
+  <mat-card class="card-form">
+    <mat-card-title>
+      Novo cardápio
+    </mat-card-title>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput [ngModel]="dataCardapio" (ngModelChange)="dataCardapio = $event" type="date" required placeholder="Data Cardápio">
+      </mat-form-field>      
+      <mat-form-field style="width: 100%">
+        <textarea matInput [(ngModel)]="descricao" type="text" required placeholder="Descrição"></textarea>      
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="salvarNovo()" mat-raised-button color="warn">Salvar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
 <div *ngFor="let cardapio of cardapios">
-  <div style="padding: 2px">
+  <div class="card-form">
     <mat-card>
       <mat-card-title>      
         Data do cardápio: {{formataData(cardapio.dataCardapio)}}
@@ -18,9 +35,8 @@
         Opções: {{cardapio.descricao}}
       </mat-card-content>
     </mat-card>
+  </div>
 </div>
-</div>
-<br>
-<div>  
+<div class="card-form">  
   <button (click)="voltar()" style="float: right; position: relative" mat-raised-button>Voltar</button>            
 </div>

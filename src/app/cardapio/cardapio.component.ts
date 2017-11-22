@@ -13,6 +13,8 @@ export class CardapioComponent implements OnInit {
 
   cardapios;
   id_restaurante: number;
+  inserting: boolean;
+  dataCardapio: Date;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private cardapioService: CardapioService) {
     this.activatedRoute.queryParams.forEach(param => {      
@@ -40,5 +42,14 @@ export class CardapioComponent implements OnInit {
 
   voltar() {
     this.router.navigate(['/inicio']);
+  }
+
+  novoCardapio() {
+    this.inserting = true;
+  }
+
+  salvarNovo() {
+    this.inserting = false;
+    alert(this.dataCardapio)
   }
 }
