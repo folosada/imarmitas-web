@@ -54,4 +54,13 @@ export class UtilsService {
     var fileBase64 = CryptoJS.enc.Base64.parse("ASD");
     alert(fileBase64);
   }
+
+  formataStringZero(texto: string, tamanho: number) {
+    let diff = tamanho - texto.length;
+    let result: string = "";
+    for (var i = 0; i < diff; i++) {
+      result += '0';
+    }
+    return result + texto;
+  }
 }

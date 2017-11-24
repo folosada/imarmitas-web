@@ -20,7 +20,12 @@ export class CardapioService {
     contentHeaders.delete('authorization');
     contentHeaders.append('authorization', localStorage.getItem('id_token'));            
     params = JSON.stringify(params);
-    return this.http.post(environment.serverUrl + '/cardapio/', params, { headers: contentHeaders });
+    return this.http.post(environment.serverUrl + '/cardapio/inserir', params, { headers: contentHeaders });
   }
 
+  public removerCardapio(id_cardapio): Observable<any> {
+    contentHeaders.delete('authorization');
+    contentHeaders.append('authorization', localStorage.getItem('id_token'));                
+    return this.http.get(environment.serverUrl + '/cardapio/removerCardapio?id_cardapio' + id_cardapio, { headers: contentHeaders });
+  }
 }

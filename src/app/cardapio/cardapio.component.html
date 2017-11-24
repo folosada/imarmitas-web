@@ -14,15 +14,19 @@
     </mat-card-title>
     <mat-card-content>
       <mat-form-field>
-        <input matInput [ngModel]="dataCardapio" (ngModelChange)="dataCardapio = $event" type="date" required placeholder="Data Cardápio">
-      </mat-form-field>      
+        <input matInput [ngModel]="cardapio.dataCardapio" (ngModelChange)="cardapio.dataCardapio = $event" type="date" required placeholder="Data Cardápio">
+      </mat-form-field>    
+      <mat-form-field>
+        <input matInput [(ngModel)]="cardapio.valor" type="number" required placeholder="Valor do prato">
+      </mat-form-field>  
       <mat-form-field style="width: 100%">
-        <textarea matInput [(ngModel)]="descricao" type="text" required placeholder="Descrição"></textarea>      
+        <textarea matInput [(ngModel)]="cardapio.descricao" type="text" required placeholder="Descrição"></textarea>      
       </mat-form-field>
     </mat-card-content>
     <div>
       <mat-card-actions>
         <button style="float: right; position: relative" (click)="salvarNovo()" mat-raised-button color="warn">Salvar</button>
+        <button style="float: right; position: relative" (click)="cancelarNovo()" mat-raised-button>Cancelar</button>
       </mat-card-actions>
     </div>
   </mat-card>
@@ -32,10 +36,17 @@
     <mat-card>
       <mat-card-title>      
         Data do cardápio: {{formataData(cardapio.dataCardapio)}}
-      </mat-card-title>
+      </mat-card-title>      
       <mat-card-content>
+        Valor do prato: R$ {{cardapio.valor}}
+        <br>
         Opções: {{cardapio.descricao}}
       </mat-card-content>
+      <div>
+        <mat-card-actions style="position:relative; float: right">
+          <button color="warn" class="material-icons" (click)="removerCardapio()" mat-fab><mat-icon>delete</mat-icon></button>
+        </mat-card-actions>
+      </div>
     </mat-card>
   </div>
 </div>
