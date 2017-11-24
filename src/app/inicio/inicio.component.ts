@@ -9,10 +9,10 @@ import { LaFomeToolbarComponent } from '../la-fome-toolbar/la-fome-toolbar.compo
 })
 export class InicioComponent implements OnInit {
 
-  nomeFantasia: string;
+  restaurante;
 
   constructor(private router: Router) { 
-    this.nomeFantasia = "Restaurante";
+    this.restaurante = JSON.parse(localStorage.getItem("restaurante"));
   }
 
   ngOnInit() {

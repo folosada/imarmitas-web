@@ -56,11 +56,11 @@
     </mat-card-header>
     <mat-card-content>
       <mat-form-field style="width: 18%; padding-right: 2%">
-        <input matInput [(ngModel)]="usuario" maxlength="32" required placeholder="Usuário">   
+        <input matInput [(ngModel)]="usuario" maxlength="32" required readonly={{isLogged()}} placeholder="Usuário">   
         <mat-error>{{obterMensagemErro().USUARIO}}</mat-error>     
       </mat-form-field>  
       <mat-form-field style="width: 20%; padding-right: 5%">
-        <input matInput [(ngModel)]="senha" type="password" maxlength="300" required placeholder="Senha">   
+        <input matInput [(ngModel)]="senha" (ngModelChange)="mudouSenha()" type="password" maxlength="300" required placeholder="Senha">   
         <mat-error>{{obterMensagemErro().SENHA}}</mat-error>     
       </mat-form-field>  
       <mat-form-field class="inputs">
@@ -72,7 +72,7 @@
       <mat-card-title class="title subtitle-font">Logotipo</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <app-file-upload></app-file-upload>
+      <app-file-upload [srcImageIn]="logo_file" (srcImageOut)="logo_file"></app-file-upload>
     </mat-card-content>
     <div class="buttons">    
       <mat-card-actions>

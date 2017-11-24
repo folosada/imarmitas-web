@@ -43,16 +43,20 @@ export class LoginComponent implements OnInit {
           this.errorMessage = null;
           localStorage.setItem('id_token', response.headers._headers.get("authorization"));
           localStorage.setItem('userId', this.userId);
-          this.router.navigate(['inicio']);
+          this.loginService.obterRestaurante(params).subscribe(
+          response => {
+            localStorage.setItem("restaurante", response._body);
+            this.router.navigate(['inicio']);
+          },
+          error => {
+            this.utils.showDialog("Ops!", "Ocorreu um erro ao tentar realizar o login!\n" + JSON.parse(error._body).message, false);
+          });          
         },
-        error => {          
-          var errorMessage = JSON.parse(error.text());          
-          if (errorMessage.result == "data_required"){
-            this.errorMessage = "Dados necessários!";
-          } else if (errorMessage.result == "invalid_user"){
-            this.errorMessage = "Usuário ou senha inválido!";
+        error => {                    
+          if (JSON.parse(error._body).error == "Unauthorized"){
+            this.errorMessage = "Usuário ou senha inválidos!";
           }  else {
-            this.errorMessage = "Ocorreu um erro :'(";
+            this.utils.showDialog("Ops!", "Ocorreu um erro! =(\n" + error._body.message, false);
           }
         }
       );

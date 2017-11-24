@@ -16,4 +16,11 @@ export class CardapioService {
     return this.http.get(environment.serverUrl + '/cardapio/buscarTodos?id_restaurante=' + id_restaurante, { headers: contentHeaders });
   }
 
+  public gravarCardapio(params): Observable<any> {
+    contentHeaders.delete('authorization');
+    contentHeaders.append('authorization', localStorage.getItem('id_token'));            
+    params = JSON.stringify(params);
+    return this.http.post(environment.serverUrl + '/cardapio/', params, { headers: contentHeaders });
+  }
+
 }

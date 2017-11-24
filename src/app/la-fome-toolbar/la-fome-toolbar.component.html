@@ -1,5 +1,10 @@
-<mat-toolbar class="toolbar">  
-  <img width="48" height="48" src="./assets/marmita.png"/>
-  La Fome
-  <button *ngIf="isLogged()" (click)="doLogout()" style="float: right" mat-button>Logout</button>
-</mat-toolbar>
+<div>
+  <mat-toolbar class="toolbar">  
+    <span><img width="48" height="48" src="./assets/marmita.png"/></span>
+    <span>La Fome</span>
+    <span style="flex: 1 1 auto;"></span>
+    <span>
+      <button style="float: right; position: relative" *ngIf="isLogged()" (click)="doLogout()" mat-button>Logout</button> 
+    </span>
+  </mat-toolbar>  
+</div>

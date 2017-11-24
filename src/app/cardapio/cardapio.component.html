@@ -20,9 +20,11 @@
         <textarea matInput [(ngModel)]="descricao" type="text" required placeholder="Descrição"></textarea>      
       </mat-form-field>
     </mat-card-content>
-    <mat-card-actions>
-      <button (click)="salvarNovo()" mat-raised-button color="warn">Salvar</button>
-    </mat-card-actions>
+    <div>
+      <mat-card-actions>
+        <button style="float: right; position: relative" (click)="salvarNovo()" mat-raised-button color="warn">Salvar</button>
+      </mat-card-actions>
+    </div>
   </mat-card>
 </div>
 <div *ngFor="let cardapio of cardapios">

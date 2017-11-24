@@ -11,12 +11,21 @@ export class LoginService {
   constructor(public http: Http, public xsrfStrategy: XSRFStrategy) { }
 
   public validarLogin(params) : Observable<any> {            
-    const body = JSON.stringify(params);    
+    const body = JSON.stringify(params);  
+    contentHeaders.delete("authorization");  
     return this.http.post(environment.serverUrl + '/restaurante/validarLogin', body, { headers: contentHeaders });
   }
 
   public alterarSenha(values) : Observable<any> {
     let body = JSON.stringify(values);    
+    contentHeaders.delete("authorization");
     return this.http.post(environment.serverUrl + '/usuario/alterarSenha', body, { headers: contentHeaders });
   }
+
+  public obterRestaurante(params): Observable<any> {
+    params = JSON.stringify(params);
+    contentHeaders.delete("authorization");
+    contentHeaders.append("authorization", localStorage.getItem("id_token"));
+    return this.http.post(environment.serverUrl + '/restaurante/getRestauranteByLogin', params, { headers: contentHeaders });
+  }  
 }

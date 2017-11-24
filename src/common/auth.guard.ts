@@ -13,6 +13,15 @@ export class AuthGuard implements CanActivate {
     }
 
     this.router.navigate(['/login']);
+    localStorage.removeItem("restaurante");
+    localStorage.removeItem("id_token");
+    return false;
+  }
+
+  public isLogged() {
+    if (JWT.tokenNotExpired("id_token")) {
+      return true;
+    } 
     return false;
   }
 }

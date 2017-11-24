@@ -10,6 +10,7 @@ import { RestauranteService } from '../service/restaurante/restaurante.service';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LaFomeToolbarComponent } from '../la-fome-toolbar/la-fome-toolbar.component';
+import { AuthGuard } from '../../common/auth.guard'
 
 @Component({
   selector: 'app-cadastro-restaurante',
@@ -19,9 +20,11 @@ import { LaFomeToolbarComponent } from '../la-fome-toolbar/la-fome-toolbar.compo
 })
 export class CadastroRestauranteComponent implements OnInit {
 
+  id: number = 0;
   razaoSocial: string;
   nomeFantasia: string;
   cnpj: string;
+  id_endereco: number = 0;
   logradouro: string;
   numero: number;
   complemento: string;
@@ -29,10 +32,13 @@ export class CadastroRestauranteComponent implements OnInit {
   estado: string;
   cep: string;
   telefone: string;
+  id_usuario: number = 0;
   usuario: string;
   senha: string;
-  email: string;
-  file: string;
+  email: string;    
+  logo_file;
+  restaurante;
+  bMudouSenha: boolean = false;
 
   cnpjValidate: CNPJErrorStateMatcher;
   cepValidate: CEPErrorStateMatcher;
@@ -49,6 +55,7 @@ export class CadastroRestauranteComponent implements OnInit {
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.carregarDados();
   }
 
   salvarRestaurante() {    
@@ -86,10 +93,12 @@ export class CadastroRestauranteComponent implements OnInit {
       return;
     }
     const params = {
+      id: this.id,
       razaoSocial: this.razaoSocial,
       nomeFantasia: this.nomeFantasia,
       cnpj: this.cnpj,
       endereco: {
+        id: this.id_endereco,
         logradouro: this.logradouro,
         cidade: this.cidade,
         estado: this.estado,
@@ -98,28 +107,24 @@ export class CadastroRestauranteComponent implements OnInit {
         complemento: this.complemento        
       },
       telefone: this.telefone,
+      logo_file: this.fileUpload.filePreview.nativeElement.src,
       usuario: {
+        id: this.id_usuario,
         login: this.usuario,
-        senha: this.utils.encriptPassword(this.senha),
+        senha: this.bMudouSenha ? this.utils.encriptPassword(this.senha) : this.senha,
         email: this.email
       }
     }  
     this.restauranteService.gravarRestaurante(params).subscribe(
-      response => {        
-        //this.utils.convertImageToBase64(this.fileUploadComponent.upload(this.fileUpload));        
+      response => {                
+        this.bMudouSenha = false;
         this.openSnackBar();
+        localStorage.setItem("restaurante", JSON.stringify(params));
         this.router.navigate(['/inicio']);
       },
-      error => {
-        var errorMessage = JSON.parse(error.text());          
-        if (errorMessage.result == "data_required"){
-          errorMessage = "Dados necessários!";
-        } else if (errorMessage.result == "invalid_user"){
-          errorMessage = "Usuário ou senha inválido!";
-        }  else {
-          errorMessage = "Ocorreu um erro :'(";
-        }
-        this.utils.showDialog("Ops!", errorMessage, false);
+      error => {        
+        var errorMessage = JSON.parse(error._body).message;        
+        this.utils.showDialog("Ops!", "Ocorreu um erro! =T\n" + errorMessage, false);
       }
     )    
   }
@@ -181,13 +186,43 @@ export class CadastroRestauranteComponent implements OnInit {
   cancelar() {
     this.utils.showDialog("Atenção!", "Tem certeza que deseja cancelar?", true).subscribe((response) => {
       if (response) {
+        this.bMudouSenha = false;
         this.router.navigate(['/inicio']);
       }
     });
   }
 
   isLogged() {
-    return localStorage.getItem("id_token");
+    let auth = new AuthGuard(this.router);
+    return auth.isLogged();
+  }
+
+  carregarDados() {
+    if (this.isLogged() && localStorage.getItem("restaurante")) {
+      this.restaurante = JSON.parse(localStorage.getItem("restaurante"));
+      this.id = this.restaurante.id;
+      this.nomeFantasia = this.restaurante.nomeFantasia;
+      this.razaoSocial = this.restaurante.razaoSocial;
+      this.cnpj = this.restaurante.cnpj;
+      this.id_endereco = this.restaurante.endereco.id;
+      this.logradouro = this.restaurante.endereco.logradouro;
+      this.cidade = this.restaurante.endereco.cidade;
+      this.estado = this.restaurante.endereco.estado;
+      this.cep = this.restaurante.endereco.cep;
+      this.numero = this.restaurante.endereco.numero;
+      this.complemento = this.restaurante.endereco.complemento;
+      this.telefone = this.restaurante.telefone;
+      this.logo_file = this.restaurante.logo_file;
+      this.id_usuario = this.restaurante.usuario.id;
+      this.usuario = this.restaurante.usuario.login;
+      this.senha = this.restaurante.usuario.senha;
+      this.email = this.restaurante.usuario.email;
+      this.fileUpload.filePreview.nativeElement.src = this.restaurante.logo_file;
+    }
+  }
+
+  mudouSenha() {
+    this.bMudouSenha = true;
   }
 }
 
