@@ -71,7 +71,8 @@ export class CardapioComponent implements OnInit {
         this.inserting = false;    
       }, 
       error => {
-
+        let errorMessage = JSON.parse(error._body).message;
+        this.utils.showDialog("Oh não!", "Ocorreu um erro ao tentar salvar o cardápio! ='(\n" + errorMessage, false);
       }
     );  
   }
@@ -88,5 +89,25 @@ export class CardapioComponent implements OnInit {
     this.snackBar.open("Cardápio adicionado com sucesso!", "", {
       duration: 2500
     });
+  }
+
+  openSnackBarRemocao() {
+    this.snackBar.open("Cardápio removido com sucesso!", "", {
+      duration: 2500
+    });
+  }  
+
+  removerCardapio(id) {
+    this.cardapioService.removerCardapio(id).subscribe(
+      response => {
+        this.openSnackBarRemocao();
+        this.buscarCardapios();
+        this.inserting = false;
+      }, 
+      error => {
+        let errorMessage = JSON.parse(error._body).message;
+        this.utils.showDialog("Ops! =(", "Ocorreu um erro ao tentar remover o cardápio!\n" + errorMessage, false);
+      }
+    ); 
   }
 }

@@ -34,6 +34,7 @@
 <div *ngFor="let cardapio of cardapios">
   <div class="card-form">
     <mat-card>
+      <button style="float: right; position: relative" (click)="removerCardapio(cardapio.id)" mat-raised-button color="warn">Remover</button>
       <mat-card-title>      
         Data do cardápio: {{formataData(cardapio.dataCardapio)}}
       </mat-card-title>      
@@ -41,12 +42,7 @@
         Valor do prato: R$ {{cardapio.valor}}
         <br>
         Opções: {{cardapio.descricao}}
-      </mat-card-content>
-      <div>
-        <mat-card-actions style="position:relative; float: right">
-          <button color="warn" class="material-icons" (click)="removerCardapio()" mat-fab><mat-icon>delete</mat-icon></button>
-        </mat-card-actions>
-      </div>
+      </mat-card-content>      
     </mat-card>
   </div>
 </div>

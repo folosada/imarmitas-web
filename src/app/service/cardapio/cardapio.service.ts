@@ -26,6 +26,6 @@ export class CardapioService {
   public removerCardapio(id_cardapio): Observable<any> {
     contentHeaders.delete('authorization');
     contentHeaders.append('authorization', localStorage.getItem('id_token'));                
-    return this.http.get(environment.serverUrl + '/cardapio/removerCardapio?id_cardapio' + id_cardapio, { headers: contentHeaders });
+    return this.http.get(environment.serverUrl + '/cardapio/removerCardapio?id_cardapio=' + id_cardapio, { headers: contentHeaders });
   }
 }
