@@ -5,7 +5,7 @@ body {
     font-family: "Arial", sans-serif;  
     /*background-color: #f4f4f4;*/
     /*, #ff3333 80%*/
-    background-color: #cc0000;
+    background-color: #9b0000;
     background-image: linear-gradient(to bottom, transparent, #ff6666 100%);
     background-size: auto 1280px;
 }
@@ -16,8 +16,14 @@ body {
     color: #cc0000;
 }
 
+.toolbar-inicio {
+    background-color: transparent;
+    color: white;
+    font-weight: bold;    
+}
+
 .toolbar {
-    background-color: #cc0000;
+    background-color: #9b0000;
     color: white;
     font-weight: bold;    
 }
