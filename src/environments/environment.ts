@@ -5,8 +5,6 @@
 
 export const environment = {
   production: false,
-  //serverUrl: "http://localhost:8080",
-  serverUrl: "http://192.168.0.15:8080",
-  //serverUrl: "http://201.54.201.72:8080",
+  serverUrl: "http://localhost:8080",    
   pathImage: "/restaurante/imagem/"
 };
