@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CardapioService } from '../service/cardapio/cardapio.service';
 import { UtilsService } from '../utils.service';
-import { LaFomeToolbarComponent } from '../la-fome-toolbar/la-fome-toolbar.component';
+import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-toolbar.component';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

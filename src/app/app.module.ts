@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from '../common/auth.guard';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 //Routes
@@ -14,6 +14,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SenhaComponent } from './senha/senha.component';
 import { CadastroRestauranteComponent } from './cadastro-restaurante/cadastro-restaurante.component';
+import { LaFomeToolbarComponent } from './components/la-fome-toolbar/la-fome-toolbar.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 // Material imports
 import { MatCardModule } from '@angular/material';
@@ -24,12 +27,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
-import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatDialogModule } from '@angular/material';
-import { DialogComponent } from './dialog/dialog.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
-import { LaFomeToolbarComponent } from './la-fome-toolbar/la-fome-toolbar.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { LaFomeToolbarComponent } from './la-fome-toolbar/la-fome-toolbar.compon
     DialogComponent,
     InicioComponent,
     CardapioComponent,
-    LaFomeToolbarComponent
+    LaFomeToolbarComponent    
   ],
   imports: [
     BrowserModule,
@@ -58,7 +59,9 @@ import { LaFomeToolbarComponent } from './la-fome-toolbar/la-fome-toolbar.compon
     HttpModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    TextMaskModule
   ],
   exports: [
     MatCardModule,

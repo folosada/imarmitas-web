@@ -3,13 +3,13 @@ import { MatFormFieldModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material';
 import { UtilsService } from '../utils.service';
-import { FileUploadComponent } from '../file-upload/file-upload.component';
+import { FileUploadComponent } from '../components/file-upload/file-upload.component';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { RestauranteService } from '../service/restaurante/restaurante.service';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LaFomeToolbarComponent } from '../la-fome-toolbar/la-fome-toolbar.component';
+import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-toolbar.component';
 import { AuthGuard } from '../../common/auth.guard'
 
 @Component({
@@ -44,6 +44,10 @@ export class CadastroRestauranteComponent implements OnInit {
   cepValidate: CEPErrorStateMatcher;
   telefoneValidate: TelefoneErrorStateMatcher;
   emailValidate: EmailErrorStateMatcher;
+    
+  public cnpjMask = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
+  public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
+  public phoneMask = ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /[\d]?/];  
 
   @ViewChild(FileUploadComponent) fileUpload;
 
