@@ -7,75 +7,121 @@
     <div>
       <mat-card-content>
         <mat-form-field class="inputs">
-          <input matInput [(ngModel)]="razaoSocial" maxlength="150" required placeholder="Razão Social">
+          <input matInput [(ngModel)]="restaurante.razaoSocial" maxlength="150" required placeholder="Razão Social">
           <mat-error *ngIf="obterMensagemErro().RAZAO_SOCIAL">{{obterMensagemErro().RAZAO_SOCIAL}}</mat-error>
         </mat-form-field>      
         <mat-form-field class="inputs">
-          <input matInput [(ngModel)]="nomeFantasia" maxlength="150" required placeholder="Nome Fantasia">
+          <input matInput [(ngModel)]="restaurante.nomeFantasia" maxlength="150" required placeholder="Nome Fantasia">
           <mat-error *ngIf="obterMensagemErro().NOME_FANTASIA">{{obterMensagemErro().NOME_FANTASIA}}</mat-error>
         </mat-form-field>      
         <mat-form-field class="inputs">
-          <input matInput (focus)="focusCNPJ($event)" (blur)="blurCNPJ($event)" [errorStateMatcher]="cnpjValidate" [textMask]="{mask: cnpjMask}" [(ngModel)]="cnpj" required placeholder="CNPJ">
+          <input matInput (focus)="focusCNPJ($event)" (blur)="blurCNPJ($event)" [errorStateMatcher]="cnpjValidate" [textMask]="{mask: cnpjMask}" [(ngModel)]="restaurante.cnpj" required placeholder="CNPJ">
           <mat-error>{{obterMensagemErro().CNPJ}}</mat-error>
         </mat-form-field>      
         <br>
         <mat-form-field class="inputs">
-          <input matInput [(ngModel)]="logradouro" maxlength="255" required placeholder="Logradouro">
+          <input matInput [(ngModel)]="restaurante.endereco.logradouro" maxlength="255" required placeholder="Logradouro">
           <mat-error>{{obterMensagemErro().LOGRADOURO}}</mat-error>
         </mat-form-field>
         <mat-form-field style="width: 10%; padding-right: 2%">
-          <input matInput [(ngModel)]="numero" type="number" placeholder="Número">               
+          <input matInput [(ngModel)]="restaurante.endereco.numero" type="number" placeholder="Número">               
         </mat-form-field>
         <mat-form-field style="width: 28%; padding-right: 5%">
-          <input matInput [(ngModel)]="complemento" maxlength="100" placeholder="Complemento">
+          <input matInput [(ngModel)]="restaurante.endereco.complemento" maxlength="100" placeholder="Complemento">
         </mat-form-field>
         <mat-form-field class="inputs">
-          <input matInput [(ngModel)]="cidade" maxlength="150" required placeholder="Cidade">
+          <input matInput [(ngModel)]="restaurante.endereco.cidade" maxlength="150" required placeholder="Cidade">
           <mat-error>{{obterMensagemErro().CIDADE}}</mat-error>
         </mat-form-field>
         <mat-form-field style="width: 28%; padding-right: 2%">
-          <input matInput [(ngModel)]="estado" maxlength="60" required placeholder="Estado">
+          <input matInput [(ngModel)]="restaurante.endereco.estado" maxlength="60" required placeholder="Estado">
           <mat-error>{{obterMensagemErro().ESTADO}}</mat-error>
         </mat-form-field>
         <mat-form-field style="width: 10%; padding-right: 5%">
-          <input matInput (focus)="focusCEP($event)" (blur)="blurCEP($event)" [errorStateMatcher]="cepValidate" [textMask]="{mask: cepMask}" [(ngModel)]="cep" required placeholder="CEP">
+          <input matInput (focus)="focusCEP($event)" (blur)="blurCEP($event)" [errorStateMatcher]="cepValidate" [textMask]="{mask: cepMask}" [(ngModel)]="restaurante.endereco.cep" required placeholder="CEP">
           <mat-error>{{obterMensagemErro().CEP}}</mat-error>
         </mat-form-field>
         <mat-form-field style="width: 20%; padding-right: 2%">
-          <input matInput (focus)="focusTelefone($event)" (blur)="blurTelefone($event)" [errorStateMatcher]="telefoneValidate" [textMask]="{mask: phoneMask}" [(ngModel)]="telefone" required placeholder="Telefone">          
+          <input matInput (focus)="focusTelefone($event)" (blur)="blurTelefone($event)" [errorStateMatcher]="telefoneValidate" [textMask]="{mask: phoneMask}" [(ngModel)]="restaurante.telefone" required placeholder="Telefone">          
           <mat-error>{{obterMensagemErro().TELEFONE}}</mat-error>
         </mat-form-field>      
       </mat-card-content>      
     </div>
-    <br>
+    <br>    
+    <mat-card-header>      
+      <mat-card-title class="title subtitle-font">Logotipo</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-file-upload [srcImageIn]="restaurante.logo_file" (srcImageOut)="restaurante.logo_file"></app-file-upload>
+    </mat-card-content>      
+    <mat-card-header>
+      <mat-card-title class="title subtitle-font">Usuários *</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-table [dataSource]="usuariosTableList">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+          <mat-cell *matCellDef="let usuario"> {{usuario.id}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="login">
+          <mat-header-cell *matHeaderCellDef> Usuário </mat-header-cell>
+          <mat-cell *matCellDef="let usuario"> {{usuario.login}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef> E-mail </mat-header-cell>
+          <mat-cell *matCellDef="let usuario"> {{usuario.email}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="acoes">
+          <mat-header-cell *matHeaderCellDef> Editar / Excluir </mat-header-cell>
+          <mat-cell *matCellDef="let usuario">
+            <button mat-icon-button color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>            
+          </mat-cell>                      
+        </ng-container>
+        <!--
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef> Administrador </mat-header-cell>
+          <mat-cell *matCellDef="let usuario" *ngIf="usuario.administrador"> <mat-icon>done</mat-icon> </mat-cell>          
+        </ng-container>
+      -->
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <div class="buttons">    
+        <mat-card-actions>
+          <button (click)="adicionarRestaurante()" id="adicionar-button" mat-raised-button>Adicionar</button>                   
+        </mat-card-actions>
+      </div>
+    </mat-card-content>
+    <div class="buttons">    
+      <mat-card-actions>
+        <button (click)="salvarRestaurante()" id="salvar-button" mat-raised-button>Salvar</button>
+        <button (click)="cancelar()" id="cancelar-button" mat-raised-button>Cancelar</button>              
+      </mat-card-actions>
+    </div>
+    <!--
     <mat-card-header>
       <mat-card-title class="title subtitle-font">Dados do Usuário</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field style="width: 18%; padding-right: 2%">
-        <input matInput [(ngModel)]="usuario" maxlength="32" required readonly={{isLogged()}} placeholder="Usuário">   
+        <input matInput [(ngModel)]="restaurante.usuario.usuario" maxlength="32" required readonly={{isLogged()}} placeholder="Usuário">   
         <mat-error>{{obterMensagemErro().USUARIO}}</mat-error>     
       </mat-form-field>  
       <mat-form-field style="width: 20%; padding-right: 5%">
-        <input matInput [(ngModel)]="senha" (ngModelChange)="mudouSenha()" type="password" maxlength="300" required placeholder="Senha">   
+        <input matInput [(ngModel)]="restaurante.senha" (ngModelChange)="mudouSenha()" type="password" maxlength="300" required placeholder="Senha">   
         <mat-error>{{obterMensagemErro().SENHA}}</mat-error>     
       </mat-form-field>  
       <mat-form-field class="inputs">
-        <input matInput (focus)="focusEmail($event)" (blur)="blurEmail($event)" [errorStateMatcher]="emailValidate" [(ngModel)]="email" maxlength="150" required placeholder="E-mail">
+        <input matInput (focus)="focusEmail($event)" (blur)="blurEmail($event)" [errorStateMatcher]="emailValidate" [(ngModel)]="restaurante.email" maxlength="150" required placeholder="E-mail">
         <mat-error>{{obterMensagemErro().EMAIL}}</mat-error>
       </mat-form-field>            
     </mat-card-content>
-    <mat-card-header>
-      <mat-card-title class="title subtitle-font">Logotipo</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <app-file-upload [srcImageIn]="logo_file" (srcImageOut)="logo_file"></app-file-upload>
-    </mat-card-content>
-    <div class="buttons">    
-      <mat-card-actions>
-        <button (click)="salvarRestaurante()" id="salvar-button" mat-raised-button>Salvar</button> 
-        <button (click)="cancelar()" id="cancelar-button" mat-raised-button>Cancelar</button>                   
-      </mat-card-actions>
-    </div>      
+  -->
   </mat-card>
 </div>

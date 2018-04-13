@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from '../common/auth.guard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 //Routes
 import { AppRoutes } from './app.route';
@@ -31,6 +31,8 @@ import { MatDialogModule } from '@angular/material';
 import { InicioComponent } from './inicio/inicio.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
 import { TextMaskModule } from 'angular2-text-mask';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -56,12 +58,14 @@ import { TextMaskModule } from 'angular2-text-mask';
     NoopAnimationsModule,
     MatButtonModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     MatSnackBarModule,
     MatFormFieldModule,
     MatDialogModule,
     ReactiveFormsModule,
-    TextMaskModule
+    TextMaskModule,
+    MatIconModule,
+    MatTableModule
   ],
   exports: [
     MatCardModule,
