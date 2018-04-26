@@ -16,5 +16,6 @@ export class Restaurante extends AbstractPojo {
     constructor() {
         super();
         this.endereco = new Endereco;
+        this.usuarios = new Array<UsuarioRestaurante>();
     }
 }

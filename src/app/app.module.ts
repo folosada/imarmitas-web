@@ -19,7 +19,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 // Material imports
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatCheckbox, MatCheckboxModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,6 +33,8 @@ import { CardapioComponent } from './cardapio/cardapio.component';
 import { TextMaskModule } from 'angular2-text-mask';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material';
+import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { MatTableModule } from '@angular/material/table';
     DialogComponent,
     InicioComponent,
     CardapioComponent,
-    LaFomeToolbarComponent    
+    LaFomeToolbarComponent,
+    CadastroUsuarioComponent    
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,9 @@ import { MatTableModule } from '@angular/material/table';
     ReactiveFormsModule,
     TextMaskModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
   exports: [
     MatCardModule,
@@ -75,12 +80,12 @@ import { MatTableModule } from '@angular/material/table';
     MatSnackBarModule,
     MatFormFieldModule,
     MatDialogModule,
-    DialogComponent
+    DialogComponent    
   ],
   providers: [
     AuthGuard
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, CadastroUsuarioComponent]
 })
 export class AppModule { }

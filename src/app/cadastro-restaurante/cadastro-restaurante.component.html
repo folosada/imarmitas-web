@@ -53,12 +53,18 @@
     </mat-card-header>
     <mat-card-content>
       <app-file-upload [srcImageIn]="restaurante.logo_file" (srcImageOut)="restaurante.logo_file"></app-file-upload>
-    </mat-card-content>      
+    </mat-card-content>
+    <br>
     <mat-card-header>
       <mat-card-title class="title subtitle-font">Usuários *</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-table [dataSource]="usuariosTableList">
+    </mat-card-header>    
+    <mat-card-actions>
+      <button (click)="adicionarUsuario()" id="adicionar-button" mat-raised-button>
+          Adicionar
+      </button>        
+    </mat-card-actions>    
+    <mat-card-content class="table">
+      <mat-table #usuariosTable [dataSource]="usuariosTableList">
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
           <mat-cell *matCellDef="let usuario"> {{usuario.id}} </mat-cell>
@@ -71,6 +77,12 @@
           <mat-header-cell *matHeaderCellDef> E-mail </mat-header-cell>
           <mat-cell *matCellDef="let usuario"> {{usuario.email}} </mat-cell>
         </ng-container>
+        <ng-container matColumnDef="administrador">
+          <mat-header-cell *matHeaderCellDef> Administrador </mat-header-cell>
+          <mat-cell *matCellDef="let usuario"> 
+              <mat-icon *ngIf="usuario.administrador">check</mat-icon>
+          </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="acoes">
           <mat-header-cell *matHeaderCellDef> Editar / Excluir </mat-header-cell>
           <mat-cell *matCellDef="let usuario">
@@ -81,21 +93,17 @@
               <mat-icon>delete</mat-icon>
             </button>            
           </mat-cell>                      
-        </ng-container>
-        <!--
-        <ng-container matColumnDef="email">
-          <mat-header-cell *matHeaderCellDef> Administrador </mat-header-cell>
-          <mat-cell *matCellDef="let usuario" *ngIf="usuario.administrador"> <mat-icon>done</mat-icon> </mat-cell>          
-        </ng-container>
-      -->
-
+        </ng-container>        
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-      <div class="buttons">    
-        <mat-card-actions>
-          <button (click)="adicionarRestaurante()" id="adicionar-button" mat-raised-button>Adicionar</button>                   
-        </mat-card-actions>
+      <div class="final-table">        
+        <div class="paginator">
+          <mat-paginator #paginator        
+            [pageSize]="5"                
+            [showFirstLastButtons]="true">
+          </mat-paginator>
+        </div>      
       </div>
     </mat-card-content>
     <div class="buttons">    
@@ -104,24 +112,5 @@
         <button (click)="cancelar()" id="cancelar-button" mat-raised-button>Cancelar</button>              
       </mat-card-actions>
     </div>
-    <!--
-    <mat-card-header>
-      <mat-card-title class="title subtitle-font">Dados do Usuário</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-form-field style="width: 18%; padding-right: 2%">
-        <input matInput [(ngModel)]="restaurante.usuario.usuario" maxlength="32" required readonly={{isLogged()}} placeholder="Usuário">   
-        <mat-error>{{obterMensagemErro().USUARIO}}</mat-error>     
-      </mat-form-field>  
-      <mat-form-field style="width: 20%; padding-right: 5%">
-        <input matInput [(ngModel)]="restaurante.senha" (ngModelChange)="mudouSenha()" type="password" maxlength="300" required placeholder="Senha">   
-        <mat-error>{{obterMensagemErro().SENHA}}</mat-error>     
-      </mat-form-field>  
-      <mat-form-field class="inputs">
-        <input matInput (focus)="focusEmail($event)" (blur)="blurEmail($event)" [errorStateMatcher]="emailValidate" [(ngModel)]="restaurante.email" maxlength="150" required placeholder="E-mail">
-        <mat-error>{{obterMensagemErro().EMAIL}}</mat-error>
-      </mat-form-field>            
-    </mat-card-content>
-  -->
   </mat-card>
 </div>

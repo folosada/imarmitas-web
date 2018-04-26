@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatFormFieldModule } from '@angular/material';
+import { MatFormFieldModule, MatDialog, MatDialogRef, MatDialogConfig, MatTable } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material';
 import { UtilsService } from '../utils.service';
@@ -13,7 +13,58 @@ import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-to
 import { AuthGuard } from '../../common/auth.guard'
 import { Restaurante } from '../model/Restaurante';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.component';
+import { IfObservable } from 'rxjs/observable/IfObservable';
+import { Observable } from 'rxjs/Observable';
+import { UsuarioRestaurante } from '../model/UsuarioRestaurante';
+
+class User {
+  private id: number;
+  private login: String;
+  private email: String;
+  private administrador: boolean;
+  
+  public getId(): number {
+    return this.id;
+  }
+
+  public setId(id: number) {
+    this.id = id;
+  }
+
+  public getLogin(): String {
+    return this.login;
+  }
+
+  public setLogin(login: String) {
+    this.login = login;
+  }
+
+  public getEmail(): String {
+    return this.email;
+  }
+
+  public setEmail(email: String) {
+    this.email = email;
+  }
+
+  public isAdministrador(): boolean {
+    return this.administrador;
+  }
+
+  public setAdministrador(administrador: boolean) {
+    this.administrador = administrador;
+  }
+
+  constructor(id: number, login: String, email: String, administrador: boolean) {
+    this.id = id;
+    this.login = login;
+    this.email = email;
+    this.administrador = administrador;    
+  }
+
+}
 
 @Component({
   selector: 'app-cadastro-restaurante',
@@ -30,45 +81,62 @@ export class CadastroRestauranteComponent implements OnInit {
   cnpjValidate: CNPJErrorStateMatcher;
   cepValidate: CEPErrorStateMatcher;
   telefoneValidate: TelefoneErrorStateMatcher;
-  emailValidate: EmailErrorStateMatcher;
+  emailValidate: EmailErrorStateMatcher;  
 
-  usuariosTableList;
-  displayedColumns = ['id', 'login', 'email', 'acoes'];  
+  usuariosTableList: MatTableDataSource<User>;
+  displayedColumns = ['id', 'login', 'email', 'administrador', 'acoes'];  
     
   public cnpjMask = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
-  public phoneMask = ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /[\d]?/];  
+  public phoneMask = ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /[\d]?/];    
 
   @ViewChild(FileUploadComponent) fileUpload;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatTable) usuariosTable;
 
   constructor(private utils: UtilsService,
               private fileUploadComponent: FileUploadComponent,
               private restauranteService: RestauranteService,
               private snackBar: MatSnackBar,
               private router: Router,
-              private activatedRoute: ActivatedRoute) { 
-    this.restaurante = new Restaurante;    
+              private activatedRoute: ActivatedRoute,
+              private cadastroUsuarioDialog: MatDialog) { 
+    this.restaurante = new Restaurante;      
     this.usuariosTableList = new MatTableDataSource([
-      {
-        id: 0,
-        login: "flavio",
-        email: "teste@teste.com",
-        administrador: true        
-      },
-      {
-        id: 1,
-        login: "leozin",
-        email: "leozin@teste.com",
-        administrador: false        
-      }
-    ]);
+      new User(1, "flavio", "teste@teste.com", true),
+      new User(2, "leozin", "leozin@teste.com", false)
+    ]);    
   }
 
   ngOnInit() {
     this.carregarDados();
   }
 
-  adicionarUsuario() {}
+  ngAfterViewInit() {
+    this.usuariosTableList.paginator = this.paginator;
+  }
+
+  adicionarUsuario() {
+    let dialogRef: MatDialogRef<CadastroUsuarioComponent>;
+    let config = new MatDialogConfig();    
+    dialogRef = this.cadastroUsuarioDialog.open(CadastroUsuarioComponent, config);
+    dialogRef.updateSize("300px", "320px");
+    dialogRef.updatePosition();    
+    dialogRef.componentInstance.exibeAdministrador = true;
+
+    return dialogRef.beforeClose().subscribe(() => {
+      const usuarioRestaurante = new UsuarioRestaurante(
+        dialogRef.componentInstance.getUsuario(), 
+        this.restaurante, 
+        dialogRef.componentInstance.isAdministrador());
+      this.usuariosTableList.data.push(
+        new User(usuarioRestaurante.usuario.id, usuarioRestaurante.usuario.login, usuarioRestaurante.usuario.email, usuarioRestaurante.administrador)
+      );      
+      this.usuariosTableList.connect();
+      this.usuariosTable.renderRows();      
+      return this.restaurante.usuarios.push(usuarioRestaurante);      
+    });
+  }
 
   salvarRestaurante() {    
     if (this.obterMensagemErro().RAZAO_SOCIAL) {
@@ -94,18 +162,7 @@ export class CadastroRestauranteComponent implements OnInit {
     }
     if (this.obterMensagemErro().TELEFONE) {
       return;
-    }
-    /*
-    if (this.obterMensagemErro().USUARIO) {
-      return;
-    }
-    if (this.obterMensagemErro().SENHA) {
-      return;
-    }
-    if (this.obterMensagemErro().EMAIL) {
-      return;
-    }
-    */
+    }     
     this.restaurante.logo_file = this.fileUpload.filePreview.nativeElement.src;    
     this.restauranteService.gravarRestaurante(this.restaurante).subscribe(
       response => {                
