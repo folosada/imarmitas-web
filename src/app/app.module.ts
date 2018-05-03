@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from '../common/auth.guard';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 //Routes
 import { AppRoutes } from './app.route';
@@ -14,9 +14,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SenhaComponent } from './senha/senha.component';
 import { CadastroRestauranteComponent } from './cadastro-restaurante/cadastro-restaurante.component';
+import { LaFomeToolbarComponent } from './components/la-fome-toolbar/la-fome-toolbar.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 // Material imports
-import { MatCardModule } from '@angular/material';
+import { MatCardModule, MatCheckbox, MatCheckboxModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,12 +27,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
-import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatDialogModule } from '@angular/material';
-import { DialogComponent } from './dialog/dialog.component';
 import { InicioComponent } from './inicio/inicio.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
-import { LaFomeToolbarComponent } from './la-fome-toolbar/la-fome-toolbar.component';
+import { TextMaskModule } from 'angular2-text-mask';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material';
+import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,8 @@ import { LaFomeToolbarComponent } from './la-fome-toolbar/la-fome-toolbar.compon
     DialogComponent,
     InicioComponent,
     CardapioComponent,
-    LaFomeToolbarComponent
+    LaFomeToolbarComponent,
+    CadastroUsuarioComponent    
   ],
   imports: [
     BrowserModule,
@@ -55,10 +61,16 @@ import { LaFomeToolbarComponent } from './la-fome-toolbar/la-fome-toolbar.compon
     NoopAnimationsModule,
     MatButtonModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     MatSnackBarModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    TextMaskModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
   exports: [
     MatCardModule,
@@ -68,12 +80,12 @@ import { LaFomeToolbarComponent } from './la-fome-toolbar/la-fome-toolbar.compon
     MatSnackBarModule,
     MatFormFieldModule,
     MatDialogModule,
-    DialogComponent
+    DialogComponent    
   ],
   providers: [
     AuthGuard
   ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent, CadastroUsuarioComponent]
 })
 export class AppModule { }

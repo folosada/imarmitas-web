@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Cadastro de Usuário</h2>
+<mat-dialog-content>
+  <div>
+    <mat-form-field>
+      <input matInput [(ngModel)]="usuario.login" maxlength="32" required placeholder="Login">
+      <mat-error>Informe o login</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="usuario.senha" maxlength="300" required type="password" placeholder="Senha">
+      <mat-error>Informe a senha</mat-error>
+    </mat-form-field>  
+  </div>
+  <div *ngIf="exibeAdministrador">
+    <mat-checkbox [(ngModel)]="administrador">Administrador</mat-checkbox>  
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <button mat-button [mat-dialog-close]="true">OK</button>
+</mat-dialog-actions>

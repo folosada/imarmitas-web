@@ -1,5 +1,6 @@
 import { AbstractPojo } from "./AbstractPojo";
 import { Endereco } from "./Endereco";
+import { UsuarioRestaurante } from "./UsuarioRestaurante";
 
 export class Restaurante extends AbstractPojo {
 
@@ -9,9 +10,12 @@ export class Restaurante extends AbstractPojo {
     endereco: Endereco = null
     logo_file = null
     telefone = null
+    usuarios: UsuarioRestaurante[]
     
 
     constructor() {
         super();
+        this.endereco = new Endereco;
+        this.usuarios = new Array<UsuarioRestaurante>();
     }
 }

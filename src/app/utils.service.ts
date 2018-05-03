@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { Observable, Observer } from 'rxjs/Rx';
-import { DialogComponent } from './dialog/dialog.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 import * as CryptoJS from 'crypto-js';
 
@@ -24,7 +24,7 @@ export class UtilsService {
   }
 
   public validaTelefone(telefone): boolean {
-    return this.validaPattern(telefone, '\\(\\d{2}\\)((\\d{4}\\d?-\\d{4})|(\\d{4}-\\d{4}\\d?))');
+    return this.validaPattern(telefone, '(\\(\\d{2}\\))(\\s?)(\\d{4}-\\d{4}\\d?)');
   }
 
   public validaEmail(email): boolean {

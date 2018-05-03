@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, Input, Output } from '@angular/core';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-file-upload',
@@ -27,9 +26,11 @@ export class FileUploadComponent implements OnInit {
       var reader = new FileReader();      
       reader.onload = (function(aImg) { 
         return function(e) { 
-          aImg.src = e.target.result; 
-          this.srcImageIn = aImg.src;
-          this.srcImageOut = aImg.src;
+          if (e.target.result) {
+            aImg.src = e.target.result;
+            this.srcImageIn = aImg.src;
+            this.srcImageOut = aImg.src;
+          }
         }; 
       })(this.filePreview.nativeElement);
       reader.readAsDataURL(fileBrowser.files[0]);
