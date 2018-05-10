@@ -8,6 +8,10 @@
     <mat-form-field>
       <input matInput [(ngModel)]="usuario.senha" maxlength="300" required type="password" placeholder="Senha">
       <mat-error>Informe a senha</mat-error>
+    </mat-form-field> 
+    <mat-form-field class="email">
+      <input matInput (focus)="focusEmail($event)" (blur)="blurEmail($event)" [(errorStateMatcher)]="emailValidate" [(ngModel)]="usuario.email" maxlength="300" required  placeholder="E-mail">
+      <mat-error>{{obterMensagemErroEmail()}}</mat-error>
     </mat-form-field>  
   </div>
   <div *ngIf="exibeAdministrador">
@@ -15,7 +19,7 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button [mat-dialog-close]="false">Cancelar</button>
   <!-- Can optionally provide a result for the closing dialog. -->
-  <button mat-button [mat-dialog-close]="true">OK</button>
+  <button mat-button [mat-dialog-close]="true" [disabled]="!validacaoFormulario()">OK</button>
 </mat-dialog-actions>
