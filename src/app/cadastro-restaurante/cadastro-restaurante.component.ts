@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatFormFieldModule, MatDialog, MatDialogRef, MatDialogConfig, MatTable } from '@angular/material';
+import { MatFormFieldModule, MatDialog, MatDialogRef, MatDialogConfig, MatTable, MatTableDataSource } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material';
 import { UtilsService } from '../utils.service';
@@ -13,58 +13,12 @@ import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-to
 import { AuthGuard } from '../../common/auth.guard'
 import { Restaurante } from '../model/Restaurante';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material';
 import { CadastroUsuarioComponent } from '../cadastro-usuario/cadastro-usuario.component';
 import { IfObservable } from 'rxjs/observable/IfObservable';
 import { Observable } from 'rxjs/Observable';
 import { UsuarioRestaurante } from '../model/UsuarioRestaurante';
-
-class User {
-  private id: number;
-  private login: String;
-  private email: String;
-  private administrador: boolean;
-  
-  public getId(): number {
-    return this.id;
-  }
-
-  public setId(id: number) {
-    this.id = id;
-  }
-
-  public getLogin(): String {
-    return this.login;
-  }
-
-  public setLogin(login: String) {
-    this.login = login;
-  }
-
-  public getEmail(): String {
-    return this.email;
-  }
-
-  public setEmail(email: String) {
-    this.email = email;
-  }
-
-  public isAdministrador(): boolean {
-    return this.administrador;
-  }
-
-  public setAdministrador(administrador: boolean) {
-    this.administrador = administrador;
-  }
-
-  constructor(id: number, login: String, email: String, administrador: boolean) {
-    this.id = id;
-    this.login = login;
-    this.email = email;
-    this.administrador = administrador;    
-  }
-
-}
+import { User } from '../cadastro-usuario/user';
 
 @Component({
   selector: 'app-cadastro-restaurante',
@@ -80,8 +34,7 @@ export class CadastroRestauranteComponent implements OnInit {
 
   cnpjValidate: CNPJErrorStateMatcher;
   cepValidate: CEPErrorStateMatcher;
-  telefoneValidate: TelefoneErrorStateMatcher;
-  emailValidate: EmailErrorStateMatcher;  
+  telefoneValidate: TelefoneErrorStateMatcher;  
 
   usuariosTableList: MatTableDataSource<User>;
   displayedColumns = ['id', 'login', 'email', 'administrador', 'acoes'];  
@@ -90,9 +43,9 @@ export class CadastroRestauranteComponent implements OnInit {
   public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
   public phoneMask = ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/, /[\d]?/];    
 
-  @ViewChild(FileUploadComponent) fileUpload;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(FileUploadComponent) fileUpload;  
   @ViewChild(MatTable) usuariosTable;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private utils: UtilsService,
               private fileUploadComponent: FileUploadComponent,
@@ -116,27 +69,46 @@ export class CadastroRestauranteComponent implements OnInit {
     this.usuariosTableList.paginator = this.paginator;
   }
 
+  refreshTable() { 
+    this.usuariosTableList = new MatTableDataSource(this.usuariosTableList.data);
+    this.usuariosTableList.paginator = this.paginator;
+    this.paginator._changePageSize(this.paginator.pageSize);
+  }
+
+  deletarUsuario(usuario: User) {
+    let index = this.usuariosTableList.data.indexOf(usuario);
+    this.usuariosTableList.data.splice(index, 1);
+    this.restaurante.removerUsuario(usuario.getLogin());
+    this.refreshTable();
+  }
+
   adicionarUsuario() {
     let dialogRef: MatDialogRef<CadastroUsuarioComponent>;
     let config = new MatDialogConfig();    
-    dialogRef = this.cadastroUsuarioDialog.open(CadastroUsuarioComponent, config);
-    dialogRef.updateSize("300px", "320px");
-    dialogRef.updatePosition();    
-    dialogRef.componentInstance.exibeAdministrador = true;
-
-    return dialogRef.beforeClose().subscribe(() => {
-      const usuarioRestaurante = new UsuarioRestaurante(
-        dialogRef.componentInstance.getUsuario(), 
-        this.restaurante, 
-        dialogRef.componentInstance.isAdministrador());
-      this.usuariosTableList.data.push(
-        new User(usuarioRestaurante.usuario.id, usuarioRestaurante.usuario.login, usuarioRestaurante.usuario.email, usuarioRestaurante.administrador)
-      );      
-      this.usuariosTableList.connect();
-      this.usuariosTable.renderRows();      
-      return this.restaurante.usuarios.push(usuarioRestaurante);      
+    dialogRef = this.cadastroUsuarioDialog.open(CadastroUsuarioComponent, config);    
+    dialogRef.updatePosition();  
+    dialogRef.updateSize("450px", "340px");
+    if (this.isLogged()) {
+      const usuarioLogado: UsuarioRestaurante = JSON.parse(localStorage.getItem("usuarioLogado"));
+      dialogRef.componentInstance.exibeAdministrador = usuarioLogado.administrador;      
+    } else {
+      dialogRef.componentInstance.exibeAdministrador = true;
+    }
+    
+    return dialogRef.beforeClose().subscribe((ret) => {
+      if (ret) {
+        const usuarioRestaurante = new UsuarioRestaurante(
+          dialogRef.componentInstance.getUsuario(), 
+          this.restaurante, 
+          dialogRef.componentInstance.isAdministrador());
+        this.usuariosTableList.data.push(
+          new User(usuarioRestaurante.usuario.id, usuarioRestaurante.usuario.login, usuarioRestaurante.usuario.email, usuarioRestaurante.administrador)
+        );      
+        this.refreshTable();      
+        return this.restaurante.usuarios.push(usuarioRestaurante);      
+      }
     });
-  }
+  }  
 
   salvarRestaurante() {    
     if (this.obterMensagemErro().RAZAO_SOCIAL) {
@@ -215,14 +187,6 @@ export class CadastroRestauranteComponent implements OnInit {
     this.telefoneValidate = null;    
   }
 
-  blurEmail(event) {    
-    this.emailValidate = new EmailErrorStateMatcher(this.utils);
-  }
-
-  focusEmail(event) {    
-    this.emailValidate = null;    
-  }
-
   openSnackBar() {
     this.snackBar.open("Registro salvo com sucesso!", "", {
       duration: 2500
@@ -251,16 +215,6 @@ export class CadastroRestauranteComponent implements OnInit {
 
   mudouSenha() {
     this.bMudouSenha = true;
-  }
-}
-
-class EmailErrorStateMatcher implements ErrorStateMatcher { 
-  constructor(private utils: UtilsService) {}
-
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    // Error when invalid control is dirty, touched, or submitted
-    const isSubmitted = form && form.submitted;
-    return ((control && (control.dirty || control.touched || isSubmitted)) && (!this.utils.validaEmail(control.value) || control.invalid));
   }
 }
 

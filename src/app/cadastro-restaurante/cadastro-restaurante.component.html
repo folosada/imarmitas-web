@@ -84,12 +84,9 @@
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="acoes">
-          <mat-header-cell *matHeaderCellDef> Editar / Excluir </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Excluir </mat-header-cell>
           <mat-cell *matCellDef="let usuario">
-            <button mat-icon-button color="primary">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn">
+            <button (click)="deletarUsuario(usuario)" mat-icon-button color="warn">
               <mat-icon>delete</mat-icon>
             </button>            
           </mat-cell>                      
@@ -99,7 +96,7 @@
       </mat-table>
       <div class="final-table">        
         <div class="paginator">
-          <mat-paginator #paginator        
+          <mat-paginator #paginator
             [pageSize]="5"                
             [showFirstLastButtons]="true">
           </mat-paginator>
