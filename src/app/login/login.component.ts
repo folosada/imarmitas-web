@@ -37,8 +37,7 @@ export class LoginComponent implements OnInit {
         "login": this.userId,
         "senha": this.utils.encriptPassword(this.userPassword)
       }
-      var status = this.loginService.validarLogin(params);      
-      status.subscribe(
+      this.loginService.validarLogin(params).subscribe(
         response => {          
           this.errorMessage = null;
           localStorage.setItem('id_token', response.headers._headers.get("authorization"));

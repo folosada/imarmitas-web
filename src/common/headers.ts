@@ -1,5 +1,18 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from "@angular/common/http";
 
-export const contentHeaders = new HttpHeaders();
-contentHeaders.append('Authorization', '');
-contentHeaders.append('Content-Type', 'application/json');
+export class MarmitaHeaders {
+    static get() {                
+        const header = {
+            headers: new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'})
+        };
+        return header;
+    }
+
+    static getAuth(authorization) {
+        const header = {
+            headers: new HttpHeaders({'Content-Type': 'application/json; charset=utf-8', 'Authorization: ': authorization})
+        }
+        return header;
+    }
+}
+

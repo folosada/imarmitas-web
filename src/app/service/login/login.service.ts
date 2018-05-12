@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { contentHeaders } from '../../../common/headers';
+import { MarmitaHeaders } from '../../../common/headers';
 import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
@@ -11,21 +11,20 @@ export class LoginService {
   constructor(public http: HttpClient) { }
 
   public validarLogin(params) : Observable<any> {            
-    const body = JSON.stringify(params);  
-    contentHeaders.delete("authorization");  
-    return this.http.post(environment.serverUrl + '/restaurante/validarLogin', body, { headers: contentHeaders });
+    const body = JSON.stringify(params);
+    let header = MarmitaHeaders.get();      
+    return this.http.post(environment.serverUrl + '/usuario/validarLogin', body, header);
   }
 
   public alterarSenha(values) : Observable<any> {
-    let body = JSON.stringify(values);    
-    contentHeaders.delete("authorization");
-    return this.http.post(environment.serverUrl + '/usuario/alterarSenha', body, { headers: contentHeaders });
+    let body = JSON.stringify(values);        
+    let header = MarmitaHeaders.get();
+    return this.http.post(environment.serverUrl + '/usuario/alterarSenha', body,  header);
   }
 
   public obterRestaurante(params): Observable<any> {
     params = JSON.stringify(params);
-    contentHeaders.delete("authorization");
-    contentHeaders.append("authorization", localStorage.getItem("id_token"));
-    return this.http.post(environment.serverUrl + '/restaurante/getRestauranteByLogin', params, { headers: contentHeaders });
+    let header = MarmitaHeaders.getAuth(localStorage.getItem("id_token"));
+    return this.http.post(environment.serverUrl + '/restaurante/getRestauranteByLogin', params, header);
   }  
 }

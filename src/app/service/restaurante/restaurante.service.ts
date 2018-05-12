@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { contentHeaders } from '../../../common/headers';
+import { MarmitaHeaders } from '../../../common/headers';
 import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
@@ -11,12 +11,14 @@ export class RestauranteService {
   constructor(public http: HttpClient) { }
 
   public gravarRestaurante(params): Observable<any> {
-    contentHeaders.delete('authorization');
+    let header;    
     if (params.id) {     
-      contentHeaders.append('authorization', localStorage.getItem('id_token'));
+      header = MarmitaHeaders.getAuth(localStorage.getItem('id_token'));
+    } else {
+      header = MarmitaHeaders.get();
     }
     let body = JSON.stringify(params);    
-    return this.http.post(environment.serverUrl + '/restaurante/inserir', body, { headers: contentHeaders });
+    return this.http.post(environment.serverUrl + '/restaurante/inserir', body, header);
   }
 
 }
