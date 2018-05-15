@@ -13,7 +13,8 @@ export class LoginService {
   public validarLogin(params) : Observable<any> {            
     const body = JSON.stringify(params);
     let header = MarmitaHeaders.get();      
-    return this.http.post(environment.serverUrl + '/usuario/validarLogin', body, header);
+    return this.http.post(environment.serverUrl + '/usuario/validarLogin', 
+                          body, header);
   }
 
   public alterarSenha(values) : Observable<any> {
