@@ -5,6 +5,7 @@ import { MatToolbarModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { LoginService } from '../service/login/login.service';
 import { UtilsService } from '../utils.service';
+import { Restaurante } from '../model/Restaurante';
 
 @Component({
   selector: 'app-login',
@@ -44,7 +45,10 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userId', this.userId);
           this.loginService.obterRestaurante(params).subscribe(
           response => {
-            localStorage.setItem("restaurante", response._body);
+            let restaurante: Restaurante = new Restaurante();
+            restaurante.initialize(response.body);            
+            localStorage.setItem("restaurante", JSON.stringify(restaurante));            
+            localStorage.setItem("usuarioLogado", JSON.stringify(restaurante.getUsuario(this.userId)))
             this.router.navigate(['inicio']);
           },
           error => {

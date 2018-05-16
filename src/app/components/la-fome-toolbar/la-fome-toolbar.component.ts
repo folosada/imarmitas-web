@@ -20,6 +20,8 @@ export class LaFomeToolbarComponent implements OnInit {
   doLogout() {
     localStorage.removeItem("id_token");
     localStorage.removeItem("restaurante");
+    localStorage.removeItem("usuarioLogado");
+    localStorage.removeItem("userId");    
     this.router.navigate(['/login']);
   }
 }
