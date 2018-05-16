@@ -54,11 +54,7 @@ export class CadastroRestauranteComponent implements OnInit {
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private cadastroUsuarioDialog: MatDialog) { 
-    this.restaurante = new Restaurante;      
-    this.usuariosTableList = new MatTableDataSource([
-      new User(1, "flavio", "teste@teste.com", true),
-      new User(2, "leozin", "leozin@teste.com", false)
-    ]);    
+    this.restaurante = new Restaurante;              
   }
 
   ngOnInit() {
@@ -90,22 +86,22 @@ export class CadastroRestauranteComponent implements OnInit {
     dialogRef.updateSize("450px", "340px");
     if (this.isLogged()) {
       const usuarioLogado: UsuarioRestaurante = JSON.parse(localStorage.getItem("usuarioLogado"));
-      dialogRef.componentInstance.exibeAdministrador = usuarioLogado.administrador;      
+      dialogRef.componentInstance.exibeAdministrador = usuarioLogado.administrador === 'S';      
     } else {
       dialogRef.componentInstance.exibeAdministrador = true;
     }
     
     return dialogRef.beforeClose().subscribe((ret) => {
       if (ret) {
+        dialogRef.componentInstance.getUsuario().senha = this.utils.encriptPassword(dialogRef.componentInstance.getUsuario().senha);
         const usuarioRestaurante = new UsuarioRestaurante(
           dialogRef.componentInstance.getUsuario(), 
-          this.restaurante, 
-          dialogRef.componentInstance.isAdministrador());
+          dialogRef.componentInstance.isAdministrador() ? 'S' : 'N');
         this.usuariosTableList.data.push(
-          new User(usuarioRestaurante.usuario.id, usuarioRestaurante.usuario.login, usuarioRestaurante.usuario.email, usuarioRestaurante.administrador)
+          new User(usuarioRestaurante.usuario.id, usuarioRestaurante.usuario.login, usuarioRestaurante.usuario.email, usuarioRestaurante.administrador === 'S')
         );      
         this.refreshTable();      
-        return this.restaurante.usuarios.push(usuarioRestaurante);      
+        return this.restaurante.usuariosRestaurante.push(usuarioRestaurante);      
       }
     });
   }  
@@ -140,7 +136,11 @@ export class CadastroRestauranteComponent implements OnInit {
       response => {                
         this.bMudouSenha = false;
         this.openSnackBar();
-        localStorage.setItem("restaurante", JSON.stringify(this.restaurante));
+        if (this.isLogged()) {
+          this.restaurante = new Restaurante();
+          this.restaurante.initialize(response.body);
+          localStorage.setItem("restaurante", JSON.stringify(this.restaurante));
+        }
         this.router.navigate(['/inicio']);
       },
       error => {        
@@ -208,9 +208,14 @@ export class CadastroRestauranteComponent implements OnInit {
   }
 
   carregarDados() {
+    let table: User[] = new Array<User>();
     if (this.isLogged() && localStorage.getItem("restaurante")) {
       this.restaurante = JSON.parse(localStorage.getItem("restaurante"));      
+      this.restaurante.usuariosRestaurante.forEach(usuarioRestaurante => {        
+        table.push(new User(usuarioRestaurante.usuario.id, usuarioRestaurante.usuario.login, usuarioRestaurante.usuario.email, usuarioRestaurante.administrador === 'S'));
+      });            
     }
+    this.usuariosTableList = new MatTableDataSource(table);
   }
 
   mudouSenha() {

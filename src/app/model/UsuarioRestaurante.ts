@@ -1,17 +1,21 @@
 import { AbstractPojo } from "./AbstractPojo";
 import { Usuario } from "./Usuario";
-import { Restaurante } from "./Restaurante";
 
 export class UsuarioRestaurante extends AbstractPojo {
-
-    usuario: Usuario = null
-    restaurante: Restaurante = null
-    administrador = null
-    
-    constructor(usuario: Usuario,  restaurante: Restaurante, administrador) {
+   
+    usuario: Usuario = null    
+    administrador: string = null
+        
+    constructor(usuario: Usuario = null, administrador: string = null) {
         super();
         this.usuario = usuario;
-        this.restaurante = restaurante;
         this.administrador = administrador;        
+    }
+
+    initialize(object: any) {
+        this._initialize(object);
+        this.usuario = new Usuario();
+        this.usuario.initialize(object.usuario);
+        this.administrador = object.administrador;        
     }
 }

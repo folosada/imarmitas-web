@@ -1,4 +1,4 @@
-export class AbstractPojo {
+export abstract class AbstractPojo {
 
     id = null
     dataCriacao = null
@@ -10,5 +10,17 @@ export class AbstractPojo {
 
     constructor() {
             
+    }
+
+    abstract initialize(object);
+
+    _initialize(object) {
+        this.id = object.id;
+        this.dataCriacao = object.dataCriacao;
+        this.dataAlteracao = object.dataAlteracao;
+        this.dataInativacao = object.dataInativacao;
+        this.usuarioCriacao = object.usuarioCriacao;
+        this.usuarioAlteracao = object.usuarioAlteracao;
+        this.usuarioInativacao = object.usuarioInativacao;
     }
 }
