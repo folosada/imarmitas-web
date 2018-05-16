@@ -37,11 +37,10 @@ export class LoginComponent implements OnInit {
         "login": this.userId,
         "senha": this.utils.encriptPassword(this.userPassword)
       }
-      var status = this.loginService.validarLogin(params);      
-      status.subscribe(
+      this.loginService.validarLogin(params).subscribe(
         response => {          
           this.errorMessage = null;
-          localStorage.setItem('id_token', response.headers._headers.get("authorization"));
+          localStorage.setItem('id_token', response.headers.get("authorization"));
           localStorage.setItem('userId', this.userId);
           this.loginService.obterRestaurante(params).subscribe(
           response => {
@@ -49,7 +48,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['inicio']);
           },
           error => {
-            this.utils.showDialog("Ops!", "Ocorreu um erro ao tentar realizar o login!\n" + JSON.parse(error._body).message, false);
+            this.utils.showDialog("Ops!", "Ocorreu um erro ao tentar realizar o login!\n" + error.error.error, false);
           });          
         },
         error => {                    
