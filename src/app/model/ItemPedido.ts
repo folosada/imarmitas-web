@@ -1,13 +1,13 @@
-import { AbstractPojo } from "./AbstractPojo";
-import { Pedido } from "./Pedido";
-import { ItemCardapio } from "./ItemCardapio";
+import { AbstractPojo } from './AbstractPojo';
+import { Pedido } from './Pedido';
+import { ItemCardapio } from './ItemCardapio';
 
 export class ItemPedido extends AbstractPojo {
-            
-    valor = null
-    quantidade = null
+
+    valor = null;
+    quantidade = null;
     itemCardapio: ItemCardapio = null;
-    
+
     constructor() {
         super();
     }

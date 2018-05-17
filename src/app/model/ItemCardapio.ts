@@ -1,10 +1,10 @@
-import { AbstractPojo } from "./AbstractPojo";
-import { Cardapio } from "./Cardapio";
+import { AbstractPojo } from './AbstractPojo';
+import { Cardapio } from './Cardapio';
 
 export class ItemCardapio extends AbstractPojo {
-        
-    nome = null    
-    
+
+    nome = null;
+
     constructor() {
         super();
     }
