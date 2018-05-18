@@ -3,14 +3,14 @@ import { Restaurante } from "./Restaurante";
 import { ItemCardapio } from "./ItemCardapio";
 
 export class Cardapio extends AbstractPojo {
-    
+
     descricao = null
-    dataCardapio = null    
+    dataCardapio = null
     valor = null
     itensCardapio: ItemCardapio[];
 
     constructor() {
-        super();        
+        super();
     }
 
     initialize(object: any) {
@@ -19,7 +19,7 @@ export class Cardapio extends AbstractPojo {
         this.valor = object.valor;
         this.itensCardapio = new Array<ItemCardapio>();
         object.itensCardapio.forEach(data => {
-            let itemCardapio: ItemCardapio = new ItemCardapio();
+            const itemCardapio: ItemCardapio = new ItemCardapio();
             itemCardapio.initialize(data);
             this.itensCardapio.push(itemCardapio);
         });
