@@ -4,16 +4,15 @@ import { MarmitaHeaders } from '../../../common/headers';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
-import { stat } from 'fs';
 
 @Injectable()
 export class PedidosService {
 
   constructor(public http: HttpClient) { }
 
-  public buscarPedidos(id_restaurante): Observable<any> {
+  public buscarPedidos(id_restaurante, timestampInicial, timestampFinal): Observable<any> {
     const header = MarmitaHeaders.getAuth(localStorage.getItem('id_token'));
-    return this.http.get(environment.serverUrl + '/pedido/pedidosRestaurante?id_restaurante=' + id_restaurante, header);
+    return this.http.get(environment.serverUrl + '/pedido/pedidosRestaurante?id_restaurante=' + id_restaurante + '&timestampInicial=' + timestampInicial + '&timestampFinal=' + timestampFinal, header);
   }
 
   public alterarStatus(params, id_pedido, status): Observable<any> {

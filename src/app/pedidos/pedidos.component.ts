@@ -15,16 +15,15 @@ import { Restaurante } from '../model/Restaurante';
 export class PedidosComponent implements OnInit {
 
 
-  //TODO: Adicionar campos de data de filtro no header de Pedidos,
-  //à direita (float: right e position: relative)
+  //TODO: Colocar campos de filtro à direita (float: right e position: relative)
 
-  //TODO: Adicionar, ao final do card uma opção para listar os itens do pedido
+  //TODO: Adicionar, ao final do card de cada pedido uma opção para listar os itens do pedido
   //Apresentado apenas informações em texto
 
   pedidos;
   restaurante: Restaurante;
-  filtroDataInicial: Date;
-  filtroDataFinal: Date;
+  filtroDataInicial;
+  filtroDataFinal;
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -32,6 +31,7 @@ export class PedidosComponent implements OnInit {
     private utils: UtilsService,
     private snackBar: MatSnackBar) {
     this.restaurante = new Restaurante();
+    console.log(Date.now());
     this.restaurante.initialize(JSON.parse(localStorage.getItem('restaurante')));
     this.buscarPedidos();
   }
@@ -39,16 +39,26 @@ export class PedidosComponent implements OnInit {
   ngOnInit() {
   }
 
-  testes(valor) {
-    this.filtroDataFinal = valor;
-    console.log(this.filtroDataFinal);
+  setDataInicial(data) {
+    this.filtroDataInicial = data;
+    this.buscarPedidos();
+  }
+
+  setDataFinal(data) {
+    this.filtroDataFinal = data;
+    this.buscarPedidos();
   }
 
   buscarPedidos() {
-    this.pedidosService.buscarPedidos(this.restaurante.id).subscribe(
+    this.pedidosService.buscarPedidos(this.restaurante.id,
+      (this.filtroDataInicial) ? Date.parse(this.filtroDataInicial) : 0,
+      (this.filtroDataFinal) ? Date.parse(this.filtroDataFinal) : Date.now()).subscribe(
       response => {
         this.pedidos = response.body;
-        console.log(this.pedidos);
+        for (let index = 0; index < this.pedidos.length; index++) {
+          const element = this.pedidos[index];
+          console.log(element.itensPedido);
+        }
       },
       error => {
         const errorMessage = JSON.parse(error.body).message;
