@@ -3,8 +3,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { PedidosService } from '../service/pedidos/pedidos.service';
 import { UtilsService } from '../utils.service';
 import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-toolbar.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatAccordion } from '@angular/material';
 import { Restaurante } from '../model/Restaurante';
+import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-pedidos',
@@ -14,11 +15,7 @@ import { Restaurante } from '../model/Restaurante';
 })
 export class PedidosComponent implements OnInit {
 
-
   //TODO: Colocar campos de filtro à direita (float: right e position: relative)
-
-  //TODO: Adicionar, ao final do card de cada pedido uma opção para listar os itens do pedido
-  //Apresentado apenas informações em texto
 
   pedidos;
   restaurante: Restaurante;
@@ -53,18 +50,18 @@ export class PedidosComponent implements OnInit {
     this.pedidosService.buscarPedidos(this.restaurante.id,
       (this.filtroDataInicial) ? Date.parse(this.filtroDataInicial) : 0,
       (this.filtroDataFinal) ? Date.parse(this.filtroDataFinal) : Date.now()).subscribe(
-      response => {
-        this.pedidos = response.body;
-        for (let index = 0; index < this.pedidos.length; index++) {
-          const element = this.pedidos[index];
-          console.log(element.itensPedido);
+        response => {
+          this.pedidos = response.body;
+          for (let index = 0; index < this.pedidos.length; index++) {
+            const element = this.pedidos[index];
+            console.log(element.itensPedido);
+          }
+        },
+        error => {
+          const errorMessage = JSON.parse(error.body).message;
+          this.utils.showDialog('Ops!', 'Ocorreu um erro ao buscar os pedidos! =(\n' + errorMessage, false);
         }
-      },
-      error => {
-        const errorMessage = JSON.parse(error.body).message;
-        this.utils.showDialog('Ops!', 'Ocorreu um erro ao buscar os pedidos! =(\n' + errorMessage, false);
-      }
-    );
+      );
   }
 
   voltar() {

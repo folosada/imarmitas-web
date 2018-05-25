@@ -36,6 +36,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material';
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { MatExpansionModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { PedidosComponent } from './pedidos/pedidos.component';
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule,
   ],
   exports: [
     MatCardModule,
