@@ -6,6 +6,7 @@ import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-to
 import { MatSnackBar, MatAccordion } from '@angular/material';
 import { Restaurante } from '../model/Restaurante';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
+import { Pedido } from '../model/Pedido';
 
 @Component({
   selector: 'app-pedidos',
@@ -17,7 +18,7 @@ export class PedidosComponent implements OnInit {
 
   //TODO: Colocar campos de filtro à direita (float: right e position: relative)
 
-  pedidos;
+  pedidos:Array<Pedido> = new Array<Pedido>();
   restaurante: Restaurante;
   filtroDataInicial;
   filtroDataFinal;
@@ -28,7 +29,6 @@ export class PedidosComponent implements OnInit {
     private utils: UtilsService,
     private snackBar: MatSnackBar) {
     this.restaurante = new Restaurante();
-    console.log(Date.now());
     this.restaurante.initialize(JSON.parse(localStorage.getItem('restaurante')));
     this.buscarPedidos();
   }
@@ -51,11 +51,19 @@ export class PedidosComponent implements OnInit {
       (this.filtroDataInicial) ? Date.parse(this.filtroDataInicial) : 0,
       (this.filtroDataFinal) ? Date.parse(this.filtroDataFinal) : Date.now()).subscribe(
         response => {
-          this.pedidos = response.body;
-          for (let index = 0; index < this.pedidos.length; index++) {
-            const element = this.pedidos[index];
-            console.log(element.itensPedido);
+          this.pedidos = new Array<Pedido>()
+          if (response.body != null) {
+            response.body.forEach(pedido => {
+              let ped = new Pedido();
+              ped.initialize(pedido);
+              this.pedidos.push(ped);
+            });
           }
+
+          // for (let index = 0; index < this.pedidos.length; index++) {
+          //   const element = this.pedidos[index];
+          //   console.log(element.itensPedido);
+          // }
         },
         error => {
           const errorMessage = JSON.parse(error.body).message;

@@ -46,10 +46,19 @@ export class LoginComponent implements OnInit {
           this.loginService.obterRestaurante(params).subscribe(
           response => {
             let restaurante: Restaurante = new Restaurante();
-            restaurante.initialize(response.body);            
-            localStorage.setItem("restaurante", JSON.stringify(restaurante));            
-            localStorage.setItem("usuarioLogado", JSON.stringify(restaurante.getUsuario(this.userId)))
-            this.router.navigate(['inicio']);
+            restaurante.initialize(response.body);
+
+            this.loginService.obterUsuariosRestaurante(restaurante.id).subscribe(
+              response => {
+                restaurante.initializeUsuariosRestaurante(response.body)
+                localStorage.setItem("restaurante", JSON.stringify(restaurante));      
+                localStorage.setItem("usuarioLogado", JSON.stringify(restaurante.getUsuario(this.userId)))
+                this.router.navigate(['inicio']);
+              },
+              error => {
+                this.utils.showDialog("Ops!", "Ocorreu um erro ao tentar realizar o login!\n" + error.error.error, false);
+              }
+            );
           },
           error => {
             this.utils.showDialog("Ops!", "Ocorreu um erro ao tentar realizar o login!\n" + error.error.error, false);

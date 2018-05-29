@@ -2,6 +2,7 @@ import { AbstractPojo } from "./AbstractPojo";
 import { Usuario } from "./Usuario";
 import { GrupoCliente } from "./GrupoCliente";
 import { Endereco } from "./Endereco";
+import { DateParserUtil } from "../../common/DateParserUtil";
 
 export class Cliente extends AbstractPojo {
     
@@ -24,7 +25,7 @@ export class Cliente extends AbstractPojo {
         this.nome = object.nome;
         this.sobrenome = object.sobrenome;
         this.cpf = object.cpf;
-        this.dataNasc = object.dataNasc;
+        this.dataNasc = DateParserUtil.stringToDate(object.dataNasc);
         this.image_file = object.image_file;
         this.endereco = new Endereco();
         this.endereco.initialize(object.endereco);

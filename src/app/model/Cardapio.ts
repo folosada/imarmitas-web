@@ -1,6 +1,7 @@
 import { AbstractPojo } from "./AbstractPojo";
 import { Restaurante } from "./Restaurante";
 import { ItemCardapio } from "./ItemCardapio";
+import { DateParserUtil } from "../../common/DateParserUtil";
 
 export class Cardapio extends AbstractPojo {
 
@@ -18,6 +19,7 @@ export class Cardapio extends AbstractPojo {
         this.descricao = object.descricao;
         this.valor = object.valor;
         this.itensCardapio = new Array<ItemCardapio>();
+        this.dataCardapio = DateParserUtil.stringToDate(object.dataCardapio);
         object.itensCardapio.forEach(data => {
             const itemCardapio: ItemCardapio = new ItemCardapio();
             itemCardapio.initialize(data);

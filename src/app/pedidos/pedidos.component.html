@@ -25,7 +25,7 @@
         </mat-card-actions>
       </div>
       <mat-card-title>
-        Data do pedido: {{formataData(pedido.dataPedido)}}
+        Data do pedido: {{pedido.dataPedido | date: 'dd/MM/yyyy hh:mm'}}
       </mat-card-title>
       <mat-card-content>
         Forma de pagamento: {{pedido.formaPagamento}}

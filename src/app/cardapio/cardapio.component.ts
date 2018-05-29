@@ -4,6 +4,7 @@ import { CardapioService } from '../service/cardapio/cardapio.service';
 import { UtilsService } from '../utils.service';
 import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-toolbar.component';
 import { MatSnackBar } from '@angular/material';
+import { Cardapio } from '../model/Cardapio';
 
 @Component({
   selector: 'app-cardapio',
@@ -13,7 +14,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class CardapioComponent implements OnInit {
 
-  cardapios;  
+  cardapios: Array<Cardapio> = new Array<Cardapio>();  
   inserting: boolean;
   dataCardapio: Date;
   cardapio = {
@@ -39,7 +40,13 @@ export class CardapioComponent implements OnInit {
   buscarCardapios() {
     this.cardapioService.buscarCardapios(this.cardapio.restaurante.id).subscribe(
       response => {
-        this.cardapios = response.json();
+        if (response.body != null) {
+          response.body.forEach(cardapio => {
+            let car = new Cardapio()
+            car.initialize(cardapio);
+            this.cardapios.push(car)
+          });
+        }
       },
       error => {
         let errorMessage = JSON.parse(error._body).message;

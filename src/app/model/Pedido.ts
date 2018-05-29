@@ -2,6 +2,7 @@ import { AbstractPojo } from "./AbstractPojo";
 import { Cardapio } from "./Cardapio";
 import { Cliente } from "./Cliente";
 import { ItemPedido } from "./ItemPedido";
+import { DateParserUtil } from "../../common/DateParserUtil";
 
 export class Pedido extends AbstractPojo {
     
@@ -20,7 +21,7 @@ export class Pedido extends AbstractPojo {
 
     initialize(object: any) {
         this._initialize(object);
-        this.dataPedido = object.dataPedido;
+        this.dataPedido = DateParserUtil.stringToDate(object.dataPedido);
         this.descricao = object.descricao;
         this.formaPagamento = object.formaPagamento;
         this.status = object.status;
