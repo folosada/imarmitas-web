@@ -11,7 +11,6 @@ export class Cliente extends AbstractPojo {
     cpf = ""
     dataNasc = ""
     image_file = ""
-    endereco: Endereco = null;
     usuario: Usuario = null
     grupoCliente: GrupoCliente = null
     
@@ -27,8 +26,6 @@ export class Cliente extends AbstractPojo {
         this.cpf = object.cpf;
         this.dataNasc = DateParserUtil.stringToDate(object.dataNasc);
         this.image_file = object.image_file;
-        this.endereco = new Endereco();
-        this.endereco.initialize(object.endereco);
         this.usuario = new Usuario();
         this.usuario.initialize(object.usuario);
         this.grupoCliente = new GrupoCliente();

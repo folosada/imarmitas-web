@@ -19,9 +19,9 @@ export abstract class AbstractPojo {
     _initialize(object) {
         if (object != null) {
             this.id = object.id;
-            this.dataCriacao =  DateParserUtil.stringToDate(object.dataCriacao);
-            this.dataAlteracao = DateParserUtil.stringToDate(object.dataAlteracao);
-            this.dataInativacao = DateParserUtil.stringToDate(object.dataInativacao);
+            this.dataCriacao =  DateParserUtil.stringToDateTime(object.dataCriacao);
+            this.dataAlteracao = DateParserUtil.stringToDateTime(object.dataAlteracao);
+            this.dataInativacao = DateParserUtil.stringToDateTime(object.dataInativacao);
             this.usuarioCriacao = object.usuarioCriacao;
             this.usuarioAlteracao = object.usuarioAlteracao;
             this.usuarioInativacao = object.usuarioInativacao;

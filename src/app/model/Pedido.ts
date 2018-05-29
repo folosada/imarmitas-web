@@ -21,7 +21,7 @@ export class Pedido extends AbstractPojo {
 
     initialize(object: any) {
         this._initialize(object);
-        this.dataPedido = DateParserUtil.stringToDate(object.dataPedido);
+        this.dataPedido = DateParserUtil.stringToDateTime(object.dataPedido);
         this.descricao = object.descricao;
         this.formaPagamento = object.formaPagamento;
         this.status = object.status;
