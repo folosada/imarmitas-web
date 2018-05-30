@@ -17,7 +17,12 @@ export class RestauranteService {
     } else {
       header = MarmitaHeaders.get();
     }
-    let body = JSON.stringify(params);    
+    let b = {
+      "usuario" : JSON.stringify(params.usuariosRestaurante),
+      "restaurante" : JSON.stringify(params)
+    }
+
+    let body = JSON.stringify(b);    
     return this.http.post(environment.serverUrl + '/restaurante/inserir', body, header);
   }
 
