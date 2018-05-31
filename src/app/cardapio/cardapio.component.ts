@@ -5,6 +5,7 @@ import { UtilsService } from '../utils.service';
 import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-toolbar.component';
 import { MatSnackBar } from '@angular/material';
 import { Cardapio } from '../model/Cardapio';
+import { DateParserUtil } from '../../common/DateParserUtil';
 
 @Component({
   selector: 'app-cardapio',
@@ -55,11 +56,8 @@ export class CardapioComponent implements OnInit {
     );
   }
 
-  formataData(milliseconds) {
-    let date = new Date(milliseconds);     
-    return this.utils.formataStringZero((String) (date.getUTCDate()), 2) + '/' + 
-           this.utils.formataStringZero((String) (date.getUTCMonth() + 1), 2) + '/' + 
-           date.getUTCFullYear();
+  public getDataCardapio(dataCardapio) {
+    return DateParserUtil.stringToDateTime(dataCardapio);
   }
 
   voltar() {

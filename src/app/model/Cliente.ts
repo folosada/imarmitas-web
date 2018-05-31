@@ -24,7 +24,7 @@ export class Cliente extends AbstractPojo {
         this.nome = object.nome;
         this.sobrenome = object.sobrenome;
         this.cpf = object.cpf;
-        this.dataNasc = DateParserUtil.stringToDate(object.dataNasc);
+        this.dataNasc = object.dataNasc;
         this.image_file = object.image_file;
         this.usuario = new Usuario();
         this.usuario.initialize(object.usuario);

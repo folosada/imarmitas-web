@@ -19,7 +19,7 @@ export class Cardapio extends AbstractPojo {
         this.descricao = object.descricao;
         this.valor = object.valor;
         this.itensCardapio = new Array<ItemCardapio>();
-        this.dataCardapio = DateParserUtil.stringToDateTime(object.dataCardapio);
+        this.dataCardapio = object.dataCardapio;
         object.itensCardapio.forEach(data => {
             const itemCardapio: ItemCardapio = new ItemCardapio();
             itemCardapio.initialize(data);

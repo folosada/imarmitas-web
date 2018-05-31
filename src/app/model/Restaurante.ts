@@ -23,7 +23,7 @@ export class Restaurante extends AbstractPojo {
         this.endereco = new Endereco();
         this.endereco.initialize(object.endereco);
         this.logo_file = object.logo_file;
-        this.telefone = object.logo_file;
+        this.telefone = object.telefone;
         this.usuariosRestaurante = new Array<UsuarioRestaurante>();
         this.cardapios = new Array<Cardapio>();
     }

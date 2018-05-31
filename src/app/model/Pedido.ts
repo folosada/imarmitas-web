@@ -14,6 +14,7 @@ export class Pedido extends AbstractPojo {
     cliente: Cliente = null
     avaliacaoRestaurante = null
     itensPedido: ItemPedido[] = null;
+    valor = null
     
     constructor() {
         super();
@@ -21,10 +22,11 @@ export class Pedido extends AbstractPojo {
 
     initialize(object: any) {
         this._initialize(object);
-        this.dataPedido = DateParserUtil.stringToDateTime(object.dataPedido);
+        this.dataPedido = object.dataPedido;
         this.descricao = object.descricao;
         this.formaPagamento = object.formaPagamento;
         this.status = object.status;
+        this.valor = object.valor;
         this.cardapio = new Cardapio();
         this.cardapio.initialize(object.cardapio);;
         this.cliente = new Cliente();

@@ -7,6 +7,7 @@ import { MatSnackBar, MatAccordion } from '@angular/material';
 import { Restaurante } from '../model/Restaurante';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 import { Pedido } from '../model/Pedido';
+import { DateParserUtil } from '../../common/DateParserUtil';
 
 @Component({
   selector: 'app-pedidos',
@@ -44,6 +45,10 @@ export class PedidosComponent implements OnInit {
   setDataFinal(data) {
     this.filtroDataFinal = data;
     this.buscarPedidos();
+  }
+
+  public getDataPedido(dataPedido) {
+    return DateParserUtil.stringToDateTime(dataPedido);
   }
 
   buscarPedidos() {
