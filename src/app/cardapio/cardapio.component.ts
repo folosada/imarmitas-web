@@ -69,6 +69,9 @@ export class CardapioComponent implements OnInit {
   }
 
   salvarNovo() {
+    let databackup = this.cardapio.dataCardapio;
+    let dc = this.cardapio.dataCardapio.split("-")
+    this.cardapio.dataCardapio = dc[2] + "-" + dc[1] + "-" + dc[0];
     this.cardapioService.gravarCardapio(this.cardapio).subscribe(
       response => {
         this.openSnackBar();
@@ -79,7 +82,8 @@ export class CardapioComponent implements OnInit {
         let errorMessage = JSON.parse(error._body).message;
         this.utils.showDialog("Oh não!", "Ocorreu um erro ao tentar salvar o cardápio! ='(\n" + errorMessage, false);
       }
-    );  
+    );
+    this.cardapio.dataCardapio = databackup;
   }
 
   cancelarNovo() {
