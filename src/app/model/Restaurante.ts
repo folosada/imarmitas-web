@@ -1,19 +1,19 @@
-import { AbstractPojo } from "./AbstractPojo";
-import { Endereco } from "./Endereco";
-import { UsuarioRestaurante } from "./UsuarioRestaurante";
-import { Usuario } from "./Usuario";
-import { Cardapio } from "./Cardapio";
+import { AbstractPojo } from './AbstractPojo';
+import { Endereco } from './Endereco';
+import { UsuarioRestaurante } from './UsuarioRestaurante';
+import { Usuario } from './Usuario';
+import { Cardapio } from './Cardapio';
 
 export class Restaurante extends AbstractPojo {
-    
-    razaoSocial = null
-    nomeFantasia = null
-    cnpj = null
-    endereco: Endereco = null
-    logo_file = null
-    telefone = null
-    usuariosRestaurante: UsuarioRestaurante[]
-    cardapios: Cardapio[]
+
+    razaoSocial = null;
+    nomeFantasia = null;
+    cnpj = null;
+    endereco: Endereco = null;
+    logo_file = null;
+    telefone = null;
+    usuariosRestaurante: UsuarioRestaurante[];
+    cardapios: Cardapio[];
 
     initialize(object) {
         this._initialize(object);
@@ -49,16 +49,16 @@ export class Restaurante extends AbstractPojo {
     }
 
     public removerUsuario(login: String) {
-        let usuarios = this.usuariosRestaurante.filter((usuarioRestaurante) => {
-            return usuarioRestaurante.usuario.login == login;
+        const usuarios = this.usuariosRestaurante.filter((usuarioRestaurante) => {
+            return usuarioRestaurante.usuario.login === login;
         });
-        let index = this.usuariosRestaurante.indexOf(usuarios[0]);
+        const index = this.usuariosRestaurante.indexOf(usuarios[0]);
         this.usuariosRestaurante.splice(index, 1);
     }
 
     public getUsuario(login: string): UsuarioRestaurante {
-        let usuarioRestaurante: UsuarioRestaurante[] = this.usuariosRestaurante.filter(usuarioRestaurante => {
-            return usuarioRestaurante.usuario.login == login;
+        const usuarioRestaurante: UsuarioRestaurante[] = this.usuariosRestaurante.filter(usuarioRestaurante => {
+            return usuarioRestaurante.usuario.login === login;
         });
         return usuarioRestaurante[0];
     }
