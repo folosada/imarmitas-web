@@ -37,6 +37,7 @@ import { MatPaginatorModule } from '@angular/material';
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { MatExpansionModule } from '@angular/material';
+import {MomentTimezoneModule} from 'angular-moment-timezone';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MatExpansionModule } from '@angular/material';
   ],
   imports: [
     BrowserModule,
+    MomentTimezoneModule,
     RouterModule.forRoot(AppRoutes, {
       useHash: true
     }),

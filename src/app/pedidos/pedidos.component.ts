@@ -48,7 +48,8 @@ export class PedidosComponent implements OnInit {
   }
 
   public getDataPedido(dataPedido) {
-    return DateParserUtil.stringToDateTime(dataPedido);
+    console.log(dataPedido);
+    return DateParserUtil.stringToDate(dataPedido);
   }
 
   buscarPedidos() {
@@ -64,6 +65,8 @@ export class PedidosComponent implements OnInit {
               this.pedidos.push(ped);
             });
           }
+
+          console.log("Pedidos", this.pedidos);
 
           // for (let index = 0; index < this.pedidos.length; index++) {
           //   const element = this.pedidos[index];

@@ -42,11 +42,14 @@ export class CardapioComponent implements OnInit {
     this.cardapioService.buscarCardapios(this.cardapio.restaurante.id).subscribe(
       response => {
         if (response.body != null) {
+          this.cardapios = new Array<Cardapio>()
           response.body.forEach(cardapio => {
             let car = new Cardapio()
             car.initialize(cardapio);
             this.cardapios.push(car)
           });
+
+          console.log("Cardapios:", JSON.stringify(this.cardapios));
         }
       },
       error => {
@@ -57,7 +60,7 @@ export class CardapioComponent implements OnInit {
   }
 
   public getDataCardapio(dataCardapio) {
-    return DateParserUtil.stringToDateTime(dataCardapio);
+    return DateParserUtil.stringToDate(dataCardapio);
   }
 
   voltar() {
@@ -70,8 +73,10 @@ export class CardapioComponent implements OnInit {
 
   salvarNovo() {
     let databackup = this.cardapio.dataCardapio;
-    let dc = this.cardapio.dataCardapio.split("-")
-    this.cardapio.dataCardapio = dc[2] + "-" + dc[1] + "-" + dc[0];
+    // let dc = this.cardapio.dataCardapio.split("-")
+    this.cardapio.dataCardapio = DateParserUtil.stringToDate(this.cardapio.dataCardapio)
+    console.log(this.cardapio)
+    // this.cardapio.dataCardapio = dc[2] + "-" + dc[1] + "-" + dc[0] + " 00:00";
     this.cardapioService.gravarCardapio(this.cardapio).subscribe(
       response => {
         this.openSnackBar();
