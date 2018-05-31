@@ -15,13 +15,15 @@ export class Endereco extends AbstractPojo {
     }
     
     initialize(object: any) {
-        this._initialize(object);
-        this.logradouro = object.logradouro;
-        this.numero = object.numero;
-        this.complemento = object.complemento;
-        this.estado = object.estado;
-        this.cidade = object.cidade;
-        this.cep = object.cep;
+        if (object != null) {
+            this._initialize(object);
+            this.logradouro = object.logradouro;
+            this.numero = object.numero;
+            this.complemento = object.complemento;
+            this.estado = object.estado;
+            this.cidade = object.cidade;
+            this.cep = object.cep;
+        }
     }
 
 }

@@ -4,6 +4,8 @@ import { CardapioService } from '../service/cardapio/cardapio.service';
 import { UtilsService } from '../utils.service';
 import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-toolbar.component';
 import { MatSnackBar } from '@angular/material';
+import { Cardapio } from '../model/Cardapio';
+import { DateParserUtil } from '../../common/DateParserUtil';
 
 @Component({
   selector: 'app-cardapio',
@@ -13,7 +15,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class CardapioComponent implements OnInit {
 
-  cardapios;  
+  cardapios: Array<Cardapio> = new Array<Cardapio>();  
   inserting: boolean;
   dataCardapio: Date;
   cardapio = {
@@ -39,7 +41,13 @@ export class CardapioComponent implements OnInit {
   buscarCardapios() {
     this.cardapioService.buscarCardapios(this.cardapio.restaurante.id).subscribe(
       response => {
-        this.cardapios = response.json();
+        if (response.body != null) {
+          response.body.forEach(cardapio => {
+            let car = new Cardapio()
+            car.initialize(cardapio);
+            this.cardapios.push(car)
+          });
+        }
       },
       error => {
         let errorMessage = JSON.parse(error._body).message;
@@ -48,11 +56,8 @@ export class CardapioComponent implements OnInit {
     );
   }
 
-  formataData(milliseconds) {
-    let date = new Date(milliseconds);     
-    return this.utils.formataStringZero((String) (date.getUTCDate()), 2) + '/' + 
-           this.utils.formataStringZero((String) (date.getUTCMonth() + 1), 2) + '/' + 
-           date.getUTCFullYear();
+  public getDataCardapio(dataCardapio) {
+    return DateParserUtil.stringToDateTime(dataCardapio);
   }
 
   voltar() {

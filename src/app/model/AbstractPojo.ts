@@ -1,3 +1,5 @@
+import { DateParserUtil } from "../../common/DateParserUtil";
+
 export abstract class AbstractPojo {
 
     id = null
@@ -15,12 +17,14 @@ export abstract class AbstractPojo {
     abstract initialize(object);
 
     _initialize(object) {
-        this.id = object.id;
-        this.dataCriacao = object.dataCriacao;
-        this.dataAlteracao = object.dataAlteracao;
-        this.dataInativacao = object.dataInativacao;
-        this.usuarioCriacao = object.usuarioCriacao;
-        this.usuarioAlteracao = object.usuarioAlteracao;
-        this.usuarioInativacao = object.usuarioInativacao;
+        if (object != null) {
+            this.id = object.id;
+            this.dataCriacao =  object.dataCriacao;
+            this.dataAlteracao = object.dataAlteracao;
+            this.dataInativacao = object.dataInativacao;
+            this.usuarioCriacao = object.usuarioCriacao;
+            this.usuarioAlteracao = object.usuarioAlteracao;
+            this.usuarioInativacao = object.usuarioInativacao;
+        }
     }
 }

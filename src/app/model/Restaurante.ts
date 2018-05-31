@@ -23,19 +23,29 @@ export class Restaurante extends AbstractPojo {
         this.endereco = new Endereco();
         this.endereco.initialize(object.endereco);
         this.logo_file = object.logo_file;
-        this.telefone = object.logo_file;
+        this.telefone = object.telefone;
         this.usuariosRestaurante = new Array<UsuarioRestaurante>();
-        object.usuariosRestaurante.forEach(data => {
-            const usuarioRestaurante: UsuarioRestaurante = new UsuarioRestaurante();
-            usuarioRestaurante.initialize(data);
-            this.usuariosRestaurante.push(usuarioRestaurante);
-        });
         this.cardapios = new Array<Cardapio>();
-        object.cardapios.forEach(data => {
-            const cardapio: Cardapio = new Cardapio();
-            cardapio.initialize(data);
-            this.cardapios.push(cardapio);
-        });
+    }
+
+    public initializeUsuariosRestaurante(object) {
+        if (object != null) {
+            object.forEach(data => {
+                let usuarioRestaurante: UsuarioRestaurante = new UsuarioRestaurante();
+                usuarioRestaurante.initialize(data);
+                this.usuariosRestaurante.push(usuarioRestaurante);
+            });
+        }
+    }
+
+    public initializeCardapios(object) {
+        if (object != null) {
+            object.forEach(data => {
+                let cardapio: Cardapio = new Cardapio();
+                cardapio.initialize(data);
+                this.cardapios.push(cardapio);
+            });
+        }
     }
 
     public removerUsuario(login: String) {

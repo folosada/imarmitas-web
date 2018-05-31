@@ -28,4 +28,9 @@ export class LoginService {
     const header = MarmitaHeaders.getAuth(localStorage.getItem('id_token'));
     return this.http.post(environment.serverUrl + '/restaurante/getRestauranteByLogin', params, header);
   }
+
+  public obterUsuariosRestaurante(id_restaurante): Observable<any> {
+    let header = MarmitaHeaders.getAuth(localStorage.getItem('id_token'));
+    return this.http.get(environment.serverUrl + '/restaurante/buscarUsuariosRestaurante?id=' + id_restaurante, header);
+  }
 }

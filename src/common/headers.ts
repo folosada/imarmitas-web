@@ -7,7 +7,7 @@ export class MarmitaHeaders {
 
     static get() {         
         const header = {
-            'headers': new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'}),
+            'headers': new HttpHeaders({'Content-Type':'application/json; charset=utf-8'}),
             'observe': 'response' as 'body', 
             'responseType': 'json' as 'json'
         };
@@ -16,7 +16,7 @@ export class MarmitaHeaders {
 
     static getAuth(authorization) {
         const header = {
-            'headers': new HttpHeaders({'Content-Type': 'application/json; charset=utf-8', 'Authorization': authorization}),
+            'headers': new HttpHeaders({'Content-Type':'application/json; charset=utf-8', 'Authorization': authorization}),
             'observe': 'response' as 'body', 
             'responseType': 'json' as 'json'
         }

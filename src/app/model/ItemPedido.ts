@@ -4,8 +4,7 @@ import { ItemCardapio } from './ItemCardapio';
 
 export class ItemPedido extends AbstractPojo {
 
-    valor = null;
-    quantidade = null;
+    quantidade = null
     itemCardapio: ItemCardapio = null;
 
     constructor() {
@@ -14,7 +13,6 @@ export class ItemPedido extends AbstractPojo {
 
     initialize(object: any) {
         this._initialize(object);
-        this.valor = object.valor;
         this.quantidade = object.quantidade;
         this.itemCardapio = new ItemCardapio();
         this.itemCardapio.initialize(object.itemCardapio);

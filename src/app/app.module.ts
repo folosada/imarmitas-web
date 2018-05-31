@@ -35,6 +35,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material';
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
+import { MatExpansionModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.co
     InicioComponent,
     CardapioComponent,
     LaFomeToolbarComponent,
-    CadastroUsuarioComponent    
+    CadastroUsuarioComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.co
     MatIconModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule,
   ],
   exports: [
     MatCardModule,
@@ -80,7 +84,7 @@ import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.co
     MatSnackBarModule,
     MatFormFieldModule,
     MatDialogModule,
-    DialogComponent    
+    DialogComponent
   ],
   providers: [
     AuthGuard
