@@ -3,6 +3,7 @@ import { Endereco } from './Endereco';
 import { UsuarioRestaurante } from './UsuarioRestaurante';
 import { Usuario } from './Usuario';
 import { Cardapio } from './Cardapio';
+import * as moment from 'moment';
 
 export class Restaurante extends AbstractPojo {
 
@@ -25,13 +26,17 @@ export class Restaurante extends AbstractPojo {
         this.logo_file = object.logo_file;
         this.telefone = object.telefone;
         this.usuariosRestaurante = new Array<UsuarioRestaurante>();
+        // tslint:disable-next-line:no-unused-expression
+        object.usuariosRestaurante && this.initializeUsuariosRestaurante(object.usuariosRestaurante);
         this.cardapios = new Array<Cardapio>();
+        // tslint:disable-next-line:no-unused-expression
+        object.cardapios && this.initializeCardapios(object.cardapios);
     }
 
     public initializeUsuariosRestaurante(object) {
         if (object != null) {
             object.forEach(data => {
-                let usuarioRestaurante: UsuarioRestaurante = new UsuarioRestaurante();
+                const usuarioRestaurante: UsuarioRestaurante = new UsuarioRestaurante();
                 usuarioRestaurante.initialize(data);
                 this.usuariosRestaurante.push(usuarioRestaurante);
             });
@@ -41,7 +46,7 @@ export class Restaurante extends AbstractPojo {
     public initializeCardapios(object) {
         if (object != null) {
             object.forEach(data => {
-                let cardapio: Cardapio = new Cardapio();
+                const cardapio: Cardapio = new Cardapio();
                 cardapio.initialize(data);
                 this.cardapios.push(cardapio);
             });
@@ -49,11 +54,11 @@ export class Restaurante extends AbstractPojo {
     }
 
     public removerUsuario(login: String) {
-        const usuarios = this.usuariosRestaurante.filter((usuarioRestaurante) => {
-            return usuarioRestaurante.usuario.login === login;
+        const usuarios = this.usuariosRestaurante.forEach((usuarioRestaurante) => {
+            if (usuarioRestaurante.usuario.login === login) {
+                usuarioRestaurante.usuario.dataInativacao = moment();
+            }
         });
-        const index = this.usuariosRestaurante.indexOf(usuarios[0]);
-        this.usuariosRestaurante.splice(index, 1);
     }
 
     public getUsuario(login: string): UsuarioRestaurante {

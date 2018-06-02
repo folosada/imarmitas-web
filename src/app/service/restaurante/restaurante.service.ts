@@ -21,7 +21,7 @@ export class RestauranteService {
       "usuario" : JSON.stringify(params.usuariosRestaurante),
       "restaurante" : JSON.stringify(params)
     }
-    const body = JSON.stringify(b);    
+    const body = JSON.stringify(b);
     return this.http.post(environment.serverUrl + '/restaurante/inserir', body, header);
   }
 

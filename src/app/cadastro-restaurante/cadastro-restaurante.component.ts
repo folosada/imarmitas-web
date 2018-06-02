@@ -137,8 +137,10 @@ export class CadastroRestauranteComponent implements OnInit {
       response => {
         this.openSnackBar();
         if (this.isLogged()) {
+          const restaurante = response.body.restaurante;
+          restaurante.usuariosRestaurante = response.body.usuariosRestaurante;
           this.restaurante = new Restaurante();
-          this.restaurante.initialize(response.body);
+          this.restaurante.initialize(restaurante);
           localStorage.setItem('restaurante', JSON.stringify(this.restaurante));
           this.router.navigate(['/inicio']);
         } else {
@@ -212,7 +214,7 @@ export class CadastroRestauranteComponent implements OnInit {
   carregarDados() {
     const table: User[] = new Array<User>();
     if (this.isLogged() && localStorage.getItem('restaurante')) {
-      this.restaurante = JSON.parse(localStorage.getItem('restaurante'));
+      this.restaurante.initialize(JSON.parse(localStorage.getItem('restaurante')));
       this.restaurante.usuariosRestaurante.forEach(usuarioRestaurante => {
         table.push(new User(
           usuarioRestaurante.usuario.id,

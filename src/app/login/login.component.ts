@@ -47,12 +47,11 @@ export class LoginComponent implements OnInit {
           response => {
             const restaurante: Restaurante = new Restaurante();
             restaurante.initialize(response.body);
-
             this.loginService.obterUsuariosRestaurante(restaurante.id).subscribe(
               response => {
-                restaurante.initializeUsuariosRestaurante(response.body)
-                localStorage.setItem("restaurante", JSON.stringify(restaurante));      
-                localStorage.setItem("usuarioLogado", JSON.stringify(restaurante.getUsuario(this.userId)))
+                restaurante.initializeUsuariosRestaurante(response.body);
+                localStorage.setItem('restaurante', JSON.stringify(restaurante));
+                localStorage.setItem('usuarioLogado', JSON.stringify(restaurante.getUsuario(this.userId)));
                 this.router.navigate(['inicio']);
               },
               error => {
