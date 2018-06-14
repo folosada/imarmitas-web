@@ -36,7 +36,7 @@
     <mat-card>
       <button style="float: right; position: relative" (click)="removerCardapio(cardapio.id)" mat-raised-button color="warn">Remover</button>
       <mat-card-title>      
-        Data do cardápio: {{formataData(cardapio.dataCardapio)}}
+        Data do cardápio: {{getDataCardapio(cardapio.dataCardapio) | date: 'dd/MM/yyyy'}}
       </mat-card-title>      
       <mat-card-content>
         Valor do prato: R$ {{cardapio.valor}}

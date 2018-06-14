@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material';
 import { MatToolbarModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { LoginService } from '../service/login/login.service';
 import { UtilsService } from '../utils.service';
+import { Restaurante } from '../model/Restaurante';
 
 @Component({
   selector: 'app-login',
@@ -21,42 +22,52 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginService, private utils: UtilsService) { }
 
   ngOnInit() {
-    this.errorMessage = "";
-    this.userId = "";
-    this.userPassword = "";
+    this.errorMessage = '';
+    this.userId = '';
+    this.userPassword = '';
   }
 
   login() {
-    if (this.userId == "") {
-      this.errorMessage = "Favor informar o usuário!";
-    } else if (this.userPassword == "") {
-      this.errorMessage = "Favor informar a senha!";
+    if (this.userId === '') {
+      this.errorMessage = 'Favor informar o usuário!';
+    } else if (this.userPassword === '') {
+      this.errorMessage = 'Favor informar a senha!';
     } else {
-      this.errorMessage = "";      
+      this.errorMessage = '';
       const params = {
-        "login": this.userId,
-        "senha": this.utils.encriptPassword(this.userPassword)
-      }
-      var status = this.loginService.validarLogin(params);      
-      status.subscribe(
-        response => {          
+        'login': this.userId,
+        'senha': this.utils.encriptPassword(this.userPassword)
+      };
+      this.loginService.validarLogin(params).subscribe(
+        response => {
           this.errorMessage = null;
-          localStorage.setItem('id_token', response.headers._headers.get("authorization"));
+          localStorage.setItem('id_token', response.headers.get('authorization'));
           localStorage.setItem('userId', this.userId);
           this.loginService.obterRestaurante(params).subscribe(
           response => {
-            localStorage.setItem("restaurante", response._body);
-            this.router.navigate(['inicio']);
+            const restaurante: Restaurante = new Restaurante();
+            restaurante.initialize(response.body);
+            this.loginService.obterUsuariosRestaurante(restaurante.id).subscribe(
+              response => {
+                restaurante.initializeUsuariosRestaurante(response.body);
+                localStorage.setItem('restaurante', JSON.stringify(restaurante));
+                localStorage.setItem('usuarioLogado', JSON.stringify(restaurante.getUsuario(this.userId)));
+                this.router.navigate(['inicio']);
+              },
+              error => {
+                this.utils.showDialog("Ops!", "Ocorreu um erro ao tentar realizar o login!\n" + error.error.error, false);
+              }
+            );
           },
           error => {
-            this.utils.showDialog("Ops!", "Ocorreu um erro ao tentar realizar o login!\n" + JSON.parse(error._body).message, false);
-          });          
+            this.utils.showDialog('Ops!', 'Ocorreu um erro ao tentar realizar o login!\n' + error.error.error, false);
+          });
         },
-        error => {                    
-          if (JSON.parse(error._body).error == "Unauthorized"){
-            this.errorMessage = "Usuário ou senha inválidos!";
+        error => {
+          if (JSON.parse(error._body).error === 'Unauthorized') {
+            this.errorMessage = 'Usuário ou senha inválidos!';
           }  else {
-            this.utils.showDialog("Ops!", "Ocorreu um erro! =(\n" + error._body.message, false);
+            this.utils.showDialog('Ops!', 'Ocorreu um erro! =(\n' + error._body.message, false);
           }
         }
       );
@@ -64,11 +75,11 @@ export class LoginComponent implements OnInit {
   }
 
   cadastrarUsuario() {
-    this.router.navigate(["cadastro"]);
+    this.router.navigate(['cadastro']);
   }
 
   alterarSenha() {
-    this.router.navigate(["senha"]);
+    this.router.navigate(['senha']);
   }
 
 }

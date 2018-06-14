@@ -1,3 +1,7 @@
+.email {
+    width: 365px;
+}
+
 mat-dialog-content {
     height: 180px;
 }

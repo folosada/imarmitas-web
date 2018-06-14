@@ -2,15 +2,15 @@
 <div class="div-master">
   <mat-card class="card-restaurant">  
     <div style="display: inline-flex">
-      <div style="width: 70px">
+      <div style="width: 70px" *ngIf="restaurante && restaurante.logo_file">
         <img style="width: 50px; height: 50px" src={{restaurante.logo_file}}/>
       </div>
       <div>
-        <mat-card-title class="card-title-restaurant">      
-          {{restaurante.nomeFantasia}}
+        <mat-card-title class="card-title-restaurant" *ngIf="restaurante">      
+          {{restaurante.nomeFantasia || ""}}
         </mat-card-title>
-        <mat-card-content>
-          {{restaurante.cnpj}}
+        <mat-card-content *ngIf="restaurante">
+          {{restaurante.cnpj || ""}}
         </mat-card-content>
       </div>
     </div>  
