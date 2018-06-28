@@ -125,7 +125,7 @@ export class CardapioComponent implements OnInit {
     }
 
     let databackup = this.cardapio.dataCardapio;
-    //console.log(this.cardapio);
+    console.log(this.cardapio);
 
     this.cardapio.itensCardapio = this.itensCardapio;
     this.cardapio.restaurante = this.restaurante;
