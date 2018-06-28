@@ -3,5 +3,12 @@
     border-width: 1px;
     border-color: #1ca800;
     color: #ffffff;
-    float: left;
+    float: right; 
+    position: relative;
+}
+
+#count-pedidos {
+    float: right; 
+    position: relative; 
+    padding-top: 15px;
 }

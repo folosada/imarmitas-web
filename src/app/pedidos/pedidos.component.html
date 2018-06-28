@@ -11,6 +11,7 @@
       <mat-form-field>
         <input matInput [ngModel]="filtroDataFinal" type="date" (ngModelChange)="setDataFinal($event)" placeholder="Data Final">
       </mat-form-field>
+      <span id="count-pedidos">Quantidade de pedidos: {{pedidos.length}}</span>
     </mat-card-content>
   </mat-card>
 </div>
@@ -20,7 +21,7 @@
       <div *ngIf="pedido.status == 'Pendente'">
         <mat-card-actions>
           <button style="float: right; position: relative;" (click)="alterarStatusPedido(pedido.id, 4)" mat-raised-button color="warn">Reprovar</button>
-          <button style="float: right; position: relative;" id="aprovar-button" (click)="alterarStatusPedido(pedido.id, 3)" mat-raised-button
+          <button id="aprovar-button" (click)="alterarStatusPedido(pedido.id, 3)" mat-raised-button
             color="primary">Aprovar</button>
         </mat-card-actions>
       </div>
@@ -43,9 +44,10 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div *ngFor="let item of pedido.itensPedido">
-              <br>Nome: {{item.itemCardapio.nome}}
-              <br>Quantidade: {{item.quantidade}}
-              <br>Valor: R$ {{item.valor}}
+              <div *ngIf="item.quantidade > 0">
+                  <br>Nome: {{item.itemCardapio.nome}}
+                  <br>Quantidade: {{item.quantidade}}
+              </div>
             </div>
           </mat-expansion-panel>
         </mat-accordion>
