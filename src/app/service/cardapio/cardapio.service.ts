@@ -21,8 +21,9 @@ export class CardapioService {
     return this.http.post(environment.serverUrl + '/cardapio/inserir', params, header);
   }
 
-  public removerCardapio(id_cardapio): Observable<any> {
-    let header = MarmitaHeaders.getAuth(localStorage.getItem('id_token'));                
-    return this.http.get(environment.serverUrl + '/cardapio/removerCardapio?id_cardapio=' + id_cardapio, header);
+  public removerCardapio(params): Observable<any> {
+    let header = MarmitaHeaders.getAuth(localStorage.getItem('id_token'));
+    params = JSON.stringify(params);
+    return this.http.post(environment.serverUrl + '/cardapio/removerCardapio', params, header);
   }
 }

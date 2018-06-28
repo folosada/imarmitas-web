@@ -17,9 +17,7 @@ import { DateParserUtil } from '../../common/DateParserUtil';
 })
 export class PedidosComponent implements OnInit {
 
-  //TODO: Colocar campos de filtro à direita (float: right e position: relative)
-
-  pedidos:Array<Pedido> = new Array<Pedido>();
+  pedidos: Array<Pedido> = new Array<Pedido>();
   restaurante: Restaurante;
   filtroDataInicial;
   filtroDataFinal;
@@ -48,7 +46,6 @@ export class PedidosComponent implements OnInit {
   }
 
   public getDataPedido(dataPedido) {
-    console.log(dataPedido);
     return DateParserUtil.stringToDate(dataPedido);
   }
 
@@ -57,10 +54,10 @@ export class PedidosComponent implements OnInit {
       (this.filtroDataInicial) ? Date.parse(this.filtroDataInicial) : 0,
       (this.filtroDataFinal) ? Date.parse(this.filtroDataFinal) : Date.now()).subscribe(
         response => {
-          this.pedidos = new Array<Pedido>()
+          this.pedidos = new Array<Pedido>();
           if (response.body != null) {
             response.body.forEach(pedido => {
-              let ped = new Pedido();
+              const ped = new Pedido();
               ped.initialize(pedido);
               this.pedidos.push(ped);
             });
@@ -91,7 +88,6 @@ export class PedidosComponent implements OnInit {
   }
 
   alterarStatusPedido(id: number, status: number) {
-    console.log(status);
     this.pedidosService.alterarStatus(this.restaurante.getUsuario(localStorage.getItem('userId')), id, status).subscribe(
       response => {
         this.openSnackBar();

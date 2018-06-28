@@ -13,15 +13,48 @@
       Novo cardápio
     </mat-card-title>
     <mat-card-content>
-      <mat-form-field>
-        <input matInput [ngModel]="cardapio.dataCardapio" (ngModelChange)="cardapio.dataCardapio = $event" type="date" required placeholder="Data Cardápio">
-      </mat-form-field>    
-      <mat-form-field>
-        <input matInput [(ngModel)]="cardapio.valor" type="number" required placeholder="Valor do prato">
-      </mat-form-field>  
-      <mat-form-field style="width: 100%">
-        <textarea matInput [(ngModel)]="cardapio.descricao" type="text" required placeholder="Descrição"></textarea>      
-      </mat-form-field>
+      <div>
+        <mat-form-field>
+          <input matInput [ngModel]="cardapio.dataCardapio" (ngModelChange)="cardapio.dataCardapio = $event" type="date" placeholder="Data Cardápio">
+        </mat-form-field>    
+        <mat-form-field>
+          <input matInput [(ngModel)]="cardapio.valor" type="number" placeholder="Valor do prato">
+        </mat-form-field>
+        <mat-form-field style="width: 100%">
+          <textarea matInput [(ngModel)]="cardapio.descricao" type="text" maxlength="300" placeholder="Descrição"></textarea>      
+        </mat-form-field>
+      </div>
+      <br>
+      <div>
+        <mat-card-title>
+          Itens Cardápio
+        </mat-card-title>
+        <mat-form-field style="width: 80%">
+          <input matInput [(ngModel)]="nomeItemCardapio" maxlength="150" placeholder="Nome item"> 
+        </mat-form-field>
+        <button (click)="adicionarItemCardapio()" style="float: right; position: relative" mat-raised-button color="warn">Adicionar</button>
+      </div>
+      <mat-table #itemCardapioTable [dataSource]="itemCardapioTableList">
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+          <mat-cell *matCellDef="let itemCardapio"> {{itemCardapio.nome}} </mat-cell>
+         </ng-container>
+         <ng-container matColumnDef="acoes">
+          <mat-header-cell *matHeaderCellDef> Excluir </mat-header-cell>
+          <mat-cell *matCellDef="let excluir">
+            <button (click)="deletarItemCardapio(itemCardapio)" mat-icon-button color="warn">
+              <mat-icon>delete</mat-icon>
+            </button>            
+          </mat-cell>                      
+        </ng-container>        
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <div class="final-table">        
+        <div class="paginator">
+          <mat-paginator #paginator [pageSize]="15" [showFirstLastButtons]="true"> </mat-paginator>
+        </div>      
+      </div>
     </mat-card-content>
     <div>
       <mat-card-actions>
@@ -34,15 +67,29 @@
 <div *ngFor="let cardapio of cardapios">
   <div class="card-form">
     <mat-card>
-      <button style="float: right; position: relative" (click)="removerCardapio(cardapio.id)" mat-raised-button color="warn">Remover</button>
+      <button style="float: right; position: relative" (click)="removerCardapio(cardapio)" mat-raised-button color="warn">Remover</button>
       <mat-card-title>      
         Data do cardápio: {{getDataCardapio(cardapio.dataCardapio) | date: 'dd/MM/yyyy'}}
       </mat-card-title>      
       <mat-card-content>
-        Valor do prato: R$ {{cardapio.valor}}
+        <b>Valor do prato:</b> R$ {{cardapio.valor}}
         <br>
-        Opções: {{cardapio.descricao}}
-      </mat-card-content>      
+        <b>Descrição:</b> {{cardapio.descricao}}
+        <br>
+        <br>
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <b>Itens do cardápio</b>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngFor="let itemCardapio of cardapio.itensCardapio">
+                <br>{{itemCardapio.nome}}
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>     
     </mat-card>
   </div>
 </div>
