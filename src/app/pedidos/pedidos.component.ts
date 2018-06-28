@@ -46,7 +46,6 @@ export class PedidosComponent implements OnInit {
   }
 
   public getDataPedido(dataPedido) {
-    console.log(dataPedido);
     return DateParserUtil.stringToDate(dataPedido);
   }
 
@@ -89,7 +88,6 @@ export class PedidosComponent implements OnInit {
   }
 
   alterarStatusPedido(id: number, status: number) {
-    console.log(status);
     this.pedidosService.alterarStatus(this.restaurante.getUsuario(localStorage.getItem('userId')), id, status).subscribe(
       response => {
         this.openSnackBar();
