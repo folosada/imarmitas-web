@@ -56,7 +56,10 @@ export class Restaurante extends AbstractPojo {
     public removerUsuario(login: String) {
         const usuarios = this.usuariosRestaurante.forEach((usuarioRestaurante) => {
             if (usuarioRestaurante.usuario.login === login) {
-                usuarioRestaurante.usuario.dataInativacao = moment();
+                usuarioRestaurante.usuario.dataInativacao = moment().valueOf();
+                usuarioRestaurante.usuario.usuarioInativacao = localStorage.getItem('userId');
+                usuarioRestaurante.dataInativacao = moment().valueOf();
+                usuarioRestaurante.usuarioInativacao = localStorage.getItem('userId');
             }
         });
     }

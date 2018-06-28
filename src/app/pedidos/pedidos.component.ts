@@ -65,13 +65,6 @@ export class PedidosComponent implements OnInit {
               this.pedidos.push(ped);
             });
           }
-
-          console.log("Pedidos", this.pedidos);
-
-          // for (let index = 0; index < this.pedidos.length; index++) {
-          //   const element = this.pedidos[index];
-          //   console.log(element.itensPedido);
-          // }
         },
         error => {
           const errorMessage = JSON.parse(error.body).message;
