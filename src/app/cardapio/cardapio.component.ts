@@ -44,6 +44,7 @@ export class CardapioComponent implements OnInit {
 
   nomeItemCardapio: String;
 
+
   @ViewChild(MatTable) itemCardapioTable;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -91,6 +92,7 @@ export class CardapioComponent implements OnInit {
   }
 
   buscarCardapios() {
+    let qualquercoisa = true;
     this.cardapioService.buscarCardapios(this.restaurante.id).subscribe(
       response => {
         if (response.body != null) {
@@ -115,13 +117,13 @@ export class CardapioComponent implements OnInit {
     let diaSemana: String = '';
 
     switch (diaSemanaValue) {
-      case '0': diaSemana = this.diasSemana[0].viewValue; break;
-      case '1': diaSemana = this.diasSemana[1].viewValue; break;
-      case '2': diaSemana = this.diasSemana[2].viewValue; break;
-      case '3': diaSemana = this.diasSemana[3].viewValue; break;
-      case '4': diaSemana = this.diasSemana[4].viewValue; break;
-      case '5': diaSemana = this.diasSemana[5].viewValue; break;
-      case '6': diaSemana = this.diasSemana[6].viewValue; break;
+      case 0: diaSemana = this.diasSemana[0].viewValue; break;
+      case 1: diaSemana = this.diasSemana[1].viewValue; break;
+      case 2: diaSemana = this.diasSemana[2].viewValue; break;
+      case 3: diaSemana = this.diasSemana[3].viewValue; break;
+      case 4: diaSemana = this.diasSemana[4].viewValue; break;
+      case 5: diaSemana = this.diasSemana[5].viewValue; break;
+      case 6: diaSemana = this.diasSemana[6].viewValue; break;
     }
 
     return diaSemana;
@@ -134,7 +136,7 @@ export class CardapioComponent implements OnInit {
   novoCardapio() {
     if (this.cardapio && this.temDados()) {
       this.utils.showDialog('Atenção', 'Existem dados inseridos, deseja realmente criar um novo cardápio?', true).subscribe(res => {
-        if (res) {
+        if (!res) {
           return false;
         }
       });
@@ -211,10 +213,10 @@ export class CardapioComponent implements OnInit {
   }
 
   validaCampos() {
-    /*if (!this.cardapio.dataCardapio) {
-      this.utils.showDialog('Atenção', 'Data do cardápio deve ser informada.', false);
+    if (!this.cardapio.diaSemana) {
+      this.utils.showDialog('Atenção', 'Dia da semana deve ser informado.', false);
       return false;
-    }*/
+    }
 
     if (!this.cardapio.valor || this.cardapio.valor === 0) {
       this.utils.showDialog('Atenção', 'Valor do prato deve ser informado.', false);
@@ -235,9 +237,9 @@ export class CardapioComponent implements OnInit {
   }
 
   temDados() {
-    /*if (this.cardapio.dataCardapio) {
+    if (this.cardapio.diaSemana) {
       return true;
-    }*/
+    }
 
     if (this.cardapio.valor || this.cardapio.valor > 0) {
       return true;

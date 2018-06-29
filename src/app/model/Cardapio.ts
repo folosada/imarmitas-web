@@ -19,7 +19,7 @@ export class Cardapio extends AbstractPojo {
         this.descricao = object.descricao;
         this.valor = object.valor;
         this.itensCardapio = new Array<ItemCardapio>();
-        this.diaSemana = object.diasSemana;
+        this.diaSemana = object.diaSemana;
         this.restaurante = object.restaurante;
         object.itensCardapio.forEach(data => {
             const itemCardapio: ItemCardapio = new ItemCardapio();

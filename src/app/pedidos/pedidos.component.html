@@ -28,11 +28,11 @@
         <b>[{{pedido.cliente.grupoCliente.nome}}] - {{pedido.cliente.nome}} {{pedido.cliente.sobrenome}}</b>
       </mat-card-title>
       <mat-card-content>
-        Data do pedido: {{getDataPedido(pedido.dataPedido) | date: 'dd/MM/yyyy'}}
-        <br> Valor do pedido: R$ {{pedido.valor}}
-        <br> Descrição: {{pedido.descricao}}
-        <br> Situação: {{pedido.status}}
-        <br> Forma de pagamento: {{pedido.formaPagamento}}
+        <b>Data do pedido:</b> {{getDataPedido(pedido.dataPedido) | date: 'dd/MM/yyyy'}}
+        <br> <b>Valor do pedido:</b> R$ {{pedido.valor}}
+        <br> <b>Descrição:</b> {{pedido.descricao}}
+        <br> <b>Situação:</b> {{pedido.status}}
+        <br> <b>Forma de pagamento:</b> {{pedido.formaPagamento}}
         <br>
         <br>
         <mat-accordion>
