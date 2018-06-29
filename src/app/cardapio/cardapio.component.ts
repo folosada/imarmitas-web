@@ -2,13 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CardapioService } from '../service/cardapio/cardapio.service';
 import { UtilsService } from '../utils.service';
-import { LaFomeToolbarComponent } from '../components/la-fome-toolbar/la-fome-toolbar.component';
-import { MatSnackBar, MatTableDataSource, MatTable, MatPaginator } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatTable, MatPaginator, MatOption } from '@angular/material';
 import { Cardapio } from '../model/Cardapio';
 import { DateParserUtil } from '../../common/DateParserUtil';
 import { ItemCardapio } from '../model/ItemCardapio';
 import { Restaurante } from '../model/Restaurante';
-import * as moment from 'moment';
+
+interface DiasSemana {
+  value: String;
+  viewValue: String;
+}
 
 @Component({
   selector: 'app-cardapio',
@@ -16,10 +19,21 @@ import * as moment from 'moment';
   styleUrls: ['./cardapio.component.css'],
   providers: [CardapioService, UtilsService, MatSnackBar]
 })
+
 export class CardapioComponent implements OnInit {
 
   itemCardapioTableList: MatTableDataSource<ItemCardapio>;
   displayedColumns = ['nome', 'acoes'];
+
+  diasSemana: DiasSemana[] = [
+    {value: '0', viewValue: 'Domingo'},
+    {value: '1', viewValue: 'Segunda-feira'},
+    {value: '2', viewValue: 'Terça-feira'},
+    {value: '3', viewValue: 'Quarta-feira'},
+    {value: '4', viewValue: 'Quinta-feira'},
+    {value: '5', viewValue: 'Sexta-feira'},
+    {value: '6', viewValue: 'Sábado'}
+  ];
 
   cardapios: Array<Cardapio> = new Array<Cardapio>();
   itensCardapio: Array<ItemCardapio> = new Array<ItemCardapio>();
@@ -97,8 +111,20 @@ export class CardapioComponent implements OnInit {
     );
   }
 
-  public getDataCardapio(dataCardapio) {
-    return DateParserUtil.stringToDate(dataCardapio);
+  public getDiaSemana(diaSemanaValue) {
+    let diaSemana: String = '';
+
+    switch (diaSemanaValue) {
+      case '0': diaSemana = this.diasSemana[0].viewValue; break;
+      case '1': diaSemana = this.diasSemana[1].viewValue; break;
+      case '2': diaSemana = this.diasSemana[2].viewValue; break;
+      case '3': diaSemana = this.diasSemana[3].viewValue; break;
+      case '4': diaSemana = this.diasSemana[4].viewValue; break;
+      case '5': diaSemana = this.diasSemana[5].viewValue; break;
+      case '6': diaSemana = this.diasSemana[6].viewValue; break;
+    }
+
+    return diaSemana;
   }
 
   voltar() {
@@ -124,33 +150,24 @@ export class CardapioComponent implements OnInit {
       return;
     }
 
-    let databackup = this.cardapio.dataCardapio;
     console.log(this.cardapio);
 
     this.cardapio.itensCardapio = this.itensCardapio;
     this.cardapio.restaurante = this.restaurante;
-    this.cardapio.dataCardapio = this.getDataCardapio(this.cardapio.dataCardapio);
-
-    let deuErro = false;
 
     this.cardapioService.gravarCardapio(this.cardapio).subscribe(
       response => {
         this.openSnackBar();
         this.buscarCardapios();
         this.inserting = false;
+        this.limparCampos();
       },
       error => {
         console.log(JSON.parse(error));
         let errorMessage = JSON.parse(error._body).message;
         this.utils.showDialog('Oh não!', 'Ocorreu um erro ao tentar salvar o cardápio!\n' + errorMessage, false);
-        deuErro = true;
       }
     );
-    this.cardapio.dataCardapio = databackup;
-
-    if (!deuErro) {
-      this.limparCampos();
-    }
   }
 
   cancelarNovo() {
@@ -174,7 +191,6 @@ export class CardapioComponent implements OnInit {
   }
 
   removerCardapio(cardapio) {
-    let qualquercoisa = false;
     this.cardapioService.removerCardapio(cardapio).subscribe(
       response => {
         this.openSnackBarRemocao();
@@ -195,10 +211,10 @@ export class CardapioComponent implements OnInit {
   }
 
   validaCampos() {
-    if (!this.cardapio.dataCardapio) {
+    /*if (!this.cardapio.dataCardapio) {
       this.utils.showDialog('Atenção', 'Data do cardápio deve ser informada.', false);
       return false;
-    }
+    }*/
 
     if (!this.cardapio.valor || this.cardapio.valor === 0) {
       this.utils.showDialog('Atenção', 'Valor do prato deve ser informado.', false);
@@ -219,9 +235,9 @@ export class CardapioComponent implements OnInit {
   }
 
   temDados() {
-    if (this.cardapio.dataCardapio) {
+    /*if (this.cardapio.dataCardapio) {
       return true;
-    }
+    }*/
 
     if (this.cardapio.valor || this.cardapio.valor > 0) {
       return true;
@@ -238,4 +254,7 @@ export class CardapioComponent implements OnInit {
     return false;
   }
 
+  diaSelecionado(event) {
+    this.cardapio.diaSemana = event.source.value;
+  }
 }

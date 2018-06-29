@@ -15,7 +15,11 @@
     <mat-card-content>
       <div>
         <mat-form-field>
-          <input matInput [ngModel]="cardapio.dataCardapio" (ngModelChange)="cardapio.dataCardapio = $event" type="date" placeholder="Data Cardápio">
+          <mat-select placeholder="Dia Semana" (selectionChange)="diaSelecionado($event)">
+            <mat-option *ngFor="let diaSemana of diasSemana" [value]="diaSemana.value">
+              {{diaSemana.viewValue}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>    
         <mat-form-field>
           <input matInput [(ngModel)]="cardapio.valor" type="number" placeholder="Valor do prato">
@@ -69,7 +73,7 @@
     <mat-card>
       <button style="float: right; position: relative" (click)="removerCardapio(cardapio)" mat-raised-button color="warn">Remover</button>
       <mat-card-title>      
-        Data do cardápio: {{getDataCardapio(cardapio.dataCardapio) | date: 'dd/MM/yyyy'}}
+        Data do cardápio: {{getDiaSemana(cardapio.diaSemana)}}
       </mat-card-title>      
       <mat-card-content>
         <b>Valor do prato:</b> R$ {{cardapio.valor}}
