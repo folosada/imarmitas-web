@@ -7,6 +7,7 @@ import { LoginService } from '../service/login/login.service';
 import { UtilsService } from '../utils.service';
 import { Restaurante } from '../model/Restaurante';
 import { AuthGuard } from '../../common/auth.guard';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-login',
@@ -59,19 +60,19 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['inicio']);
               },
               error => {
-                this.utils.showDialog('Ops!', 'Ocorreu um erro ao tentar realizar o login!\n' + error.error.error, false);
+                this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
               }
             );
           },
           error => {
-            this.utils.showDialog('Ops!', 'Ocorreu um erro ao tentar realizar o login!\n' + error.error.error, false);
+            this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
           });
         },
         error => {
           if (error.error.error === 'Unauthorized') {
             this.errorMessage = 'Usuário ou senha inválidos!';
           }  else {
-            this.utils.showDialog('Ops!', 'Ocorreu um erro! =(\n' + error._body.message, false);
+            this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
           }
         }
       );

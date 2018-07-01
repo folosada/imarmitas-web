@@ -64,8 +64,7 @@ export class PedidosComponent implements OnInit {
           }
         },
         error => {
-          const errorMessage = JSON.parse(error.body).message;
-          this.utils.showDialog('Ops!', 'Ocorreu um erro ao buscar os pedidos! =(\n' + errorMessage, false);
+          this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
         }
       );
   }
@@ -93,9 +92,8 @@ export class PedidosComponent implements OnInit {
         this.openSnackBar();
         this.buscarPedidos();
       },
-      error => {
-        const errorMessage = JSON.parse(error.body).message;
-        this.utils.showDialog('Ops!', 'Ocorreu um erro ao buscar os pedidos! =(\n' + errorMessage, false);
+      error => {        
+        this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
       }
     );
   }

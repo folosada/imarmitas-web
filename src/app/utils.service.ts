@@ -59,7 +59,7 @@ export class UtilsService {
     return result + texto;
   }
 
-  tratarErros(message: String): String {
+  tratarErros(message: string): string {
     if (!Number(message)) return 'Ocorreu um erro!\n' + message;
     switch (Number(message)) {
       case EnumErrors.EXISTING_USER.valueOf():

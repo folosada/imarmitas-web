@@ -96,9 +96,9 @@ export class CardapioComponent implements OnInit {
     this.cardapioService.buscarCardapios(this.restaurante.id).subscribe(
       response => {
         if (response.body != null) {
-          this.cardapios = new Array<Cardapio>()
+          this.cardapios = new Array<Cardapio>();
           response.body.forEach(cardapio => {
-            let car = new Cardapio();
+            const car = new Cardapio();
             car.initialize(cardapio);
             this.cardapios.push(car);
           });
@@ -107,8 +107,7 @@ export class CardapioComponent implements OnInit {
         }
       },
       error => {
-        let errorMessage = JSON.parse(error._body).message;
-        this.utils.showDialog('Ops!', 'Ocorreu um erro ao buscar os cardápios!\n' + errorMessage, false);
+        this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
       }
     );
   }
@@ -166,8 +165,7 @@ export class CardapioComponent implements OnInit {
       },
       error => {
         console.log(JSON.parse(error));
-        let errorMessage = JSON.parse(error._body).message;
-        this.utils.showDialog('Oh não!', 'Ocorreu um erro ao tentar salvar o cardápio!\n' + errorMessage, false);
+        this.utils.showDialog('Oh não!', this.utils.tratarErros(error.error.message), false);
       }
     );
   }
@@ -200,8 +198,7 @@ export class CardapioComponent implements OnInit {
         this.inserting = false;
       },
       error => {
-        let errorMessage = JSON.parse(error._body).message;
-        this.utils.showDialog('Ops! =(', 'Ocorreu um erro ao tentar remover o cardápio!\n' + errorMessage, false);
+        this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
       }
     );
   }
