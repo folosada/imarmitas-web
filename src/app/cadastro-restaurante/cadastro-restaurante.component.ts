@@ -132,6 +132,10 @@ export class CadastroRestauranteComponent implements OnInit {
     if (this.obterMensagemErro().TELEFONE) {
       return;
     }
+    if (!this.restaurante.usuariosRestaurante || !this.restaurante.usuariosRestaurante.length) {
+      this.utils.showDialog('Atenção!', 'É necessário informar pelo menos um usuário!', false);
+      return;
+    }
     this.restaurante.logo_file = this.fileUpload.filePreview.nativeElement.src;
     this.restauranteService.gravarRestaurante(this.restaurante).subscribe(
       response => {

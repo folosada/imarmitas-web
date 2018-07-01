@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatCardModule } from '@angular/material';
-import { MatToolbarModule } from '@angular/material';
-import { MatInputModule } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { LoginService } from '../service/login/login.service';
 import { UtilsService } from '../utils.service';
