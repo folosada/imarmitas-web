@@ -7,7 +7,6 @@ import { LoginService } from '../service/login/login.service';
 import { UtilsService } from '../utils.service';
 import { Restaurante } from '../model/Restaurante';
 import { AuthGuard } from '../../common/auth.guard';
-import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-login',
