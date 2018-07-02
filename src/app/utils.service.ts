@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { Observable, Observer } from 'rxjs/Rx';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { EnumErrors } from './enumeration/EnumErrors';
 
 import * as CryptoJS from 'crypto-js';
 
