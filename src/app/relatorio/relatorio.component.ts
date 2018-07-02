@@ -15,7 +15,6 @@ export class RelatorioComponent implements OnInit {
   constructor(private pedidosService: PedidosService) { }
 
   ngOnInit() {
-
     this.anoFormControl = (new Date()).getFullYear();
     this.pedidosService.buscarPedidosYear(this.anoFormControl).subscribe(
       result => {
