@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material';
 import { LoginService } from '../service/login/login.service';
 import { UtilsService } from '../utils.service';
 import { Restaurante } from '../model/Restaurante';
+import { AuthGuard } from '../../common/auth.guard';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,9 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginService, private utils: UtilsService) { }
 
   ngOnInit() {
+    if (this.isLogged()) {
+      this.router.navigate(['/inicio']);
+    }
     this.errorMessage = '';
     this.userId = '';
     this.userPassword = '';
@@ -55,19 +59,19 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['inicio']);
               },
               error => {
-                this.utils.showDialog("Ops!", "Ocorreu um erro ao tentar realizar o login!\n" + error.error.error, false);
+                this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
               }
             );
           },
           error => {
-            this.utils.showDialog('Ops!', 'Ocorreu um erro ao tentar realizar o login!\n' + error.error.error, false);
+            this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
           });
         },
         error => {
-          if (JSON.parse(error._body).error === 'Unauthorized') {
+          if (error.error.error === 'Unauthorized') {
             this.errorMessage = 'Usuário ou senha inválidos!';
           }  else {
-            this.utils.showDialog('Ops!', 'Ocorreu um erro! =(\n' + error._body.message, false);
+            this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
           }
         }
       );
@@ -80,6 +84,11 @@ export class LoginComponent implements OnInit {
 
   alterarSenha() {
     this.router.navigate(['senha']);
+  }
+
+  isLogged() {
+    const auth = new AuthGuard(this.router);
+    return auth.isLogged();
   }
 
 }

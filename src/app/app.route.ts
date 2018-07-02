@@ -41,5 +41,5 @@ export const AppRoutes: Routes = [
     {
         path: '',
         component: LoginComponent
-    }    
-]
+    }
+];

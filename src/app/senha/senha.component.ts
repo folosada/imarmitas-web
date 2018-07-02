@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatCardModule } from '@angular/material';
-import { MatToolbarModule } from '@angular/material';
-import { MatInputModule } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { LoginService } from '../service/login/login.service';
 import { UtilsService } from '../utils.service';
@@ -25,37 +22,30 @@ export class SenhaComponent implements OnInit {
   ngOnInit() {
   }
 
-  voltar() {    
+  voltar() {
     this.router.navigate(['/']);
   }
 
   alterarSenha() {
-    let values = {
+    const values = {
       login: this.userId,
       email: this.userEmail,
       senha: this.utils.encriptPassword(this.userPassword)
-    }
-    var result = this.loginService.alterarSenha(values);
+    };
+    const result = this.loginService.alterarSenha(values);
     result.subscribe(
       response => {
         this.openSnackBar();
         this.router.navigate(['/']);
       },
       error => {
-        var errorMessage = JSON.parse(error.text());          
-        if (errorMessage.result == "data_required"){
-          this.errorMessage = "Dados necessários!";
-        } else if (errorMessage.result == "invalid_user"){
-          this.errorMessage = "Usuário ou senha inválido!";
-        }  else {
-          this.errorMessage = "Ocorreu um erro :'(";
-        }
+        this.errorMessage = this.utils.tratarErros(error.error.message);
       }
     );
   }
 
   openSnackBar() {
-    this.snackBar.open("Senha alterada com sucesso!", "", {
+    this.snackBar.open('Senha alterada com sucesso!', '', {
       duration: 2500
     });
   }

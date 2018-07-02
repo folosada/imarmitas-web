@@ -38,6 +38,7 @@ import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.co
 import { PedidosComponent } from './pedidos/pedidos.component';
 import { MatExpansionModule } from '@angular/material';
 import {MomentTimezoneModule} from 'angular-moment-timezone';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import {MomentTimezoneModule} from 'angular-moment-timezone';
     MatPaginatorModule,
     MatCheckboxModule,
     MatExpansionModule,
+    MatSelectModule,
   ],
   exports: [
     MatCardModule,
