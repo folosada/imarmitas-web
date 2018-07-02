@@ -1,4 +1,4 @@
-enum EnumErrors {
+export enum EnumErrors {
     EXISTING_USER = 0,
     EXISTING_CLIENT = 1,
     EXISTING_RESTAURANT = 2,
