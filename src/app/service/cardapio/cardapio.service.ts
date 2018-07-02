@@ -26,4 +26,10 @@ export class CardapioService {
     params = JSON.stringify(params);
     return this.http.post(environment.serverUrl + '/cardapio/removerCardapio', params, header);
   }
+
+  public contemPedidosPendentes(params): Observable<any> {
+    let header = MarmitaHeaders.getAuth(localStorage.getItem('id_token'));
+    params = JSON.stringify(params);
+    return this.http.post(environment.serverUrl + '/cardapio/contemPedidosPendentes', params, header);
+  }
 }

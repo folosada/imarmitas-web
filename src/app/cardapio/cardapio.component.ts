@@ -26,13 +26,13 @@ export class CardapioComponent implements OnInit {
   displayedColumns = ['nome', 'acoes'];
 
   diasSemana: DiasSemana[] = [
-    {value: '0', viewValue: 'Domingo'},
-    {value: '1', viewValue: 'Segunda-feira'},
-    {value: '2', viewValue: 'Terça-feira'},
-    {value: '3', viewValue: 'Quarta-feira'},
-    {value: '4', viewValue: 'Quinta-feira'},
-    {value: '5', viewValue: 'Sexta-feira'},
-    {value: '6', viewValue: 'Sábado'}
+    { value: '0', viewValue: 'Domingo' },
+    { value: '1', viewValue: 'Segunda-feira' },
+    { value: '2', viewValue: 'Terça-feira' },
+    { value: '3', viewValue: 'Quarta-feira' },
+    { value: '4', viewValue: 'Quinta-feira' },
+    { value: '5', viewValue: 'Sexta-feira' },
+    { value: '6', viewValue: 'Sábado' }
   ];
 
   cardapios: Array<Cardapio> = new Array<Cardapio>();
@@ -49,10 +49,10 @@ export class CardapioComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private cardapioService: CardapioService,
-              private utils: UtilsService,
-              private snackBar: MatSnackBar) {
+    private router: Router,
+    private cardapioService: CardapioService,
+    private utils: UtilsService,
+    private snackBar: MatSnackBar) {
     this.restaurante = new Restaurante();
     this.restaurante.initialize(JSON.parse(localStorage.getItem('restaurante')));
     this.buscarCardapios();
@@ -191,13 +191,37 @@ export class CardapioComponent implements OnInit {
   }
 
   removerCardapio(cardapio) {
-    this.cardapioService.removerCardapio(cardapio).subscribe(
+    this.cardapioService.contemPedidosPendentes(cardapio).subscribe(
       response => {
-        this.openSnackBarRemocao();
-        this.buscarCardapios();
-        this.inserting = false;
-      },
-      error => {
+        if (response.body) {
+          this.utils.showDialog('Atenção',
+            'Existem pedidos pendentes para este cardápio. Deseja removê-lo mesmo assim?', true)
+            .subscribe(res => {
+              if (res) {
+                this.cardapioService.removerCardapio(cardapio).subscribe(
+                  response => {
+                    this.openSnackBarRemocao();
+                    this.buscarCardapios();
+                    this.inserting = false;
+                  },
+                  error => {
+                    this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
+                  });
+              }
+            });
+        } else {
+          this.cardapioService.removerCardapio(cardapio).subscribe(
+            response => {
+              this.openSnackBarRemocao();
+              this.buscarCardapios();
+              this.inserting = false;
+            },
+            error => {
+              this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
+            }
+          );
+        }
+      }, error => {
         this.utils.showDialog('Ops!', this.utils.tratarErros(error.error.message), false);
       }
     );
