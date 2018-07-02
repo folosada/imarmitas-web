@@ -21,8 +21,9 @@ export class PedidosService {
     return this.http.post(environment.serverUrl + '/pedido/alterarStatus?id_pedido=' + id_pedido + '&status=' + status, params, header);
   }
 
-  public buscarPedidosYear(ano):Observable<any> {
+  public buscarPedidosYear(ano): Observable<any> {
     const header = MarmitaHeaders.getAuth(localStorage.getItem('id_token'));
-    return this.http.get(environment.serverUrl + '/pedido/getPedidosByYear?year=' + ano, header);
+    const restaurante = JSON.parse(localStorage.getItem('restaurante'));
+    return this.http.get(environment.serverUrl + '/pedido/getPedidosByYear?year=' + ano + '&restaurante=' + restaurante.id, header);
   }
 }
