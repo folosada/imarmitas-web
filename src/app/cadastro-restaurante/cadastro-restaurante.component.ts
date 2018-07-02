@@ -20,6 +20,11 @@ import { Observable } from 'rxjs/Observable';
 import { UsuarioRestaurante } from '../model/UsuarioRestaurante';
 import { User } from '../cadastro-usuario/user';
 
+interface Estado {
+  value: String;
+  viewValue: String;
+}
+
 @Component({
   selector: 'app-cadastro-restaurante',
   templateUrl: './cadastro-restaurante.component.html',
@@ -36,6 +41,36 @@ export class CadastroRestauranteComponent implements OnInit {
 
   usuariosTableList: MatTableDataSource<User>;
   displayedColumns = ['id', 'login', 'email', 'administrador', 'acoes'];
+
+  estados: Estado[] = [
+    {value: 'AC', viewValue: 'Acre'},
+    {value: 'AL', viewValue: 'Alagoas'},
+    {value: 'AP', viewValue: 'Amapá'},
+    {value: 'AM', viewValue: 'Amazonas'},
+    {value: 'BA', viewValue: 'Bahia'},
+    {value: 'CE', viewValue: 'Ceará'},
+    {value: 'DF', viewValue: 'Distrito Federal'},
+    {value: 'ES', viewValue: 'Espírito Santo'},
+    {value: 'GO', viewValue: 'Goiás'},
+    {value: 'MA', viewValue: 'Maranhão'},
+    {value: 'MT', viewValue: 'Mato Grosso'},
+    {value: 'MS', viewValue: 'Mato Grosso do Sul'},
+    {value: 'MG', viewValue: 'Minas Gerais'},
+    {value: 'PA', viewValue: 'Pará'},
+    {value: 'PB', viewValue: 'Paraíba'},
+    {value: 'PR', viewValue: 'Paraná'},
+    {value: 'PE', viewValue: 'Pernambuco'},
+    {value: 'PI', viewValue: 'Piauí'},
+    {value: 'RJ', viewValue: 'Rio de Janeiro'},
+    {value: 'RN', viewValue: 'Rio Grande do Norte'},
+    {value: 'RS', viewValue: 'Rio Grande do Sul'},
+    {value: 'RO', viewValue: 'Rondônia'},
+    {value: 'RR', viewValue: 'Roraima'},
+    {value: 'SC', viewValue: 'Santa Catarina'},
+    {value: 'SP', viewValue: 'São Paulo'},
+    {value: 'SE', viewValue: 'Sergipe'},
+    {value: 'TO', viewValue: 'Tocantins'}
+  ];
 
   public cnpjMask = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/];
   public cepMask = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
@@ -228,6 +263,10 @@ export class CadastroRestauranteComponent implements OnInit {
       });
     }
     this.usuariosTableList = new MatTableDataSource(table);
+  }
+
+  estadoSelecionado(event) {
+    this.restaurante.endereco.estado = event.source.value;
   }
 }
 
