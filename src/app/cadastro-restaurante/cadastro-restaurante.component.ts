@@ -40,6 +40,8 @@ export class CadastroRestauranteComponent implements OnInit {
   telefoneValidate: TelefoneErrorStateMatcher;
 
   usuariosTableList: MatTableDataSource<User>;
+  userIdLogado: string;
+  usuarioLogado: UsuarioRestaurante;
   displayedColumns = ['id', 'login', 'email', 'administrador', 'acoes'];
 
   estados: Estado[] = [
@@ -105,10 +107,18 @@ export class CadastroRestauranteComponent implements OnInit {
   }
 
   deletarUsuario(usuario: User) {
-    const index = this.usuariosTableList.data.indexOf(usuario);
-    this.usuariosTableList.data.splice(index, 1);
-    this.restaurante.removerUsuario(usuario.getLogin());
-    this.refreshTable();
+    if (usuario.getLogin() === this.userIdLogado) {
+      this.utils.showDialog('Atenção!', 'Não é possível excluir o usuário logado!', false);
+      return;
+    }
+    if (this.usuarioLogado.administrador === 'S') {
+      const index = this.usuariosTableList.data.indexOf(usuario);
+      this.usuariosTableList.data.splice(index, 1);
+      this.restaurante.removerUsuario(usuario.getLogin());
+      this.refreshTable();
+    } else {
+      this.utils.showDialog('Atenção!', 'Somente usuários administradores podem excluir usuários', false);
+    }
   }
 
   adicionarUsuario() {
@@ -118,8 +128,7 @@ export class CadastroRestauranteComponent implements OnInit {
     dialogRef.updatePosition();
     dialogRef.updateSize('450px', '340px');
     if (this.isLogged()) {
-      const usuarioLogado: UsuarioRestaurante = JSON.parse(localStorage.getItem('usuarioLogado'));
-      dialogRef.componentInstance.exibeAdministrador = usuarioLogado.administrador === 'S';
+      dialogRef.componentInstance.exibeAdministrador = this.usuarioLogado.administrador === 'S';
     } else {
       dialogRef.componentInstance.exibeAdministrador = true;
     }
@@ -252,7 +261,11 @@ export class CadastroRestauranteComponent implements OnInit {
 
   carregarDados() {
     const table: User[] = new Array<User>();
+    this.userIdLogado = '';
+    this.usuarioLogado = new UsuarioRestaurante();
     if (this.isLogged() && localStorage.getItem('restaurante')) {
+      this.userIdLogado = localStorage.getItem('userId');
+      this.usuarioLogado.initialize(JSON.parse(localStorage.getItem('usuarioLogado')));
       this.restaurante.initialize(JSON.parse(localStorage.getItem('restaurante')));
       this.restaurante.usuariosRestaurante.forEach(usuarioRestaurante => {
         table.push(new User(

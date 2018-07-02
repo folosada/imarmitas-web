@@ -92,7 +92,7 @@
         <ng-container matColumnDef="acoes">
           <mat-header-cell *matHeaderCellDef> Excluir </mat-header-cell>
           <mat-cell *matCellDef="let usuario">
-            <button (click)="deletarUsuario(usuario)" mat-icon-button color="warn">
+            <button *ngIf="usuario.getLogin() != usuarioLogado.usuario.login && usuarioLogado.administrador === 'S'" (click)="deletarUsuario(usuario)" mat-icon-button color="warn">
               <mat-icon>delete</mat-icon>
             </button>            
           </mat-cell>                      
