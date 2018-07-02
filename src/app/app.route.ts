@@ -6,6 +6,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { CardapioComponent } from './cardapio/cardapio.component';
 import { AuthGuard } from '../common/auth.guard';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { RelatorioComponent } from './relatorio/relatorio.component';
 
 export const AppRoutes: Routes = [
     {
@@ -33,6 +34,10 @@ export const AppRoutes: Routes = [
     {
         path: 'pedido',
         component: PedidosComponent
+    },
+    {
+        path: 'relatorio',
+        component: RelatorioComponent
     },
     {
         path: '**',

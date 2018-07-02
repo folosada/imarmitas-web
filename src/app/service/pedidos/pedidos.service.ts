@@ -20,4 +20,9 @@ export class PedidosService {
     params = JSON.stringify(params);
     return this.http.post(environment.serverUrl + '/pedido/alterarStatus?id_pedido=' + id_pedido + '&status=' + status, params, header);
   }
+
+  public buscarPedidosYear(ano):Observable<any> {
+    const header = MarmitaHeaders.getAuth(localStorage.getItem('id_token'));
+    return this.http.get(environment.serverUrl + '/pedido/getPedidosByYear?year=' + ano, header);
+  }
 }

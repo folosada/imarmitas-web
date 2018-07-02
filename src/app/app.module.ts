@@ -39,6 +39,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { MatExpansionModule } from '@angular/material';
 import {MomentTimezoneModule} from 'angular-moment-timezone';
 import {MatSelectModule} from '@angular/material/select';
+import { RelatorioComponent } from './relatorio/relatorio.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {MatSelectModule} from '@angular/material/select';
     CardapioComponent,
     LaFomeToolbarComponent,
     CadastroUsuarioComponent,
-    PedidosComponent
+    PedidosComponent,
+    RelatorioComponent
   ],
   imports: [
     BrowserModule,

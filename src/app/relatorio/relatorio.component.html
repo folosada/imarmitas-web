@@ -1,0 +1,115 @@
+<app-la-fome-toolbar></app-la-fome-toolbar>
+<div class="card-form">
+  <mat-card class="card-form">
+    <mat-card-title class="title">
+      Relatório
+    </mat-card-title>
+    <mat-card-content>
+      <button mat-icon-button>
+        <mat-icon aria-label="Proximo" (click)="onSubYear()">keyboard_arrow_left</mat-icon>
+      </button>
+      <mat-form-field>
+        <input matInput placeholder="Ano Referência" [ngModel]="anoFormControl" disabled>
+      </mat-form-field>
+      <button mat-icon-button (click)="onAddYear()">
+        <mat-icon aria-label="Proximo">keyboard_arrow_right</mat-icon>
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<mat-card>
+  <mat-card-content>
+    <span>Janeiro</span>
+    <span style="float: right;">R${{valores['0'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Fevereiro</span>
+    <span style="float: right;">R${{valores['1'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Março</span>
+    <span style="float: right;">R${{valores['2'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Abril</span>
+    <span style="float: right;">R${{valores['3'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Maio</span>
+
+    <span style="float: right;">R${{valores['4'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Junho</span>
+    <span style="float: right;">R${{valores['5'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Julho</span>
+    <span style="float: right;">R${{valores['6'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Agosto</span>
+    <span style="float: right;">R${{valores['7'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Setembro</span>
+    <span style="float: right;">R${{valores['8'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Outubro</span>
+    <span style="float: right;">R${{valores['9'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Novembro</span>
+    <span style="float: right;">R${{valores['10'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span>Dezembro</span>
+    <span style="float: right;">R${{valores['11'] || 0}}</span>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content>
+    <span><b>Total</b></span>
+    <span style="float: right;"><b>R${{total || 0}}</b></span>
+  </mat-card-content>
+</mat-card>
+
+<div class="card-form">  
+  <button (click)="voltar()" style="float: right; position: relative" mat-raised-button>Voltar</button>            
+</div>
