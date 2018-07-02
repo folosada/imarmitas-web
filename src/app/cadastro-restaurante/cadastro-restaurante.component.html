@@ -34,12 +34,14 @@
           <mat-error>{{obterMensagemErro().CIDADE}}</mat-error>
         </mat-form-field>
         <mat-form-field style="width: 28%; padding-right: 2%">
-          <mat-select [(ngModel)]="restaurante.endereco.estado" placeholder="Estado" (selectionChange)="estadoSelecionado($event)">
-            <!--mat-error>{{obterMensagemErro().ESTADO}}</mat-error!-->
+          <mat-select #estadoSelect required [(ngModel)]="restaurante.endereco.estado" placeholder="Estado" (selectionChange)="estadoSelecionado($event)">            
             <mat-option *ngFor="let estado of estados" [value]="estado.value">
               {{estado.viewValue}}  
             </mat-option>
           </mat-select>
+          <mat-error *ngIf="estadoSelect.errorState">
+            {{obterMensagemErro().ESTADO}}
+          </mat-error>          
         </mat-form-field>
         <mat-form-field style="width: 10%; padding-right: 5%">
           <input matInput (focus)="focusCEP($event)" (blur)="blurCEP($event)" [errorStateMatcher]="cepValidate" [textMask]="{mask: cepMask}" [(ngModel)]="restaurante.endereco.cep" required placeholder="CEP">
