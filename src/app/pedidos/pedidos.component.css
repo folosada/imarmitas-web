@@ -12,3 +12,8 @@
     position: relative; 
     padding-top: 15px;
 }
+
+#filtrar-button {
+    color: white;
+    background-color: #cc0000;
+}

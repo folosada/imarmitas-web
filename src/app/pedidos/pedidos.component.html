@@ -6,11 +6,12 @@
     </mat-card-title>
     <mat-card-content>
       <mat-form-field>
-        <input matInput [ngModel]="filtroDataInicial" type="date" (ngModelChange)="setDataInicial($event)" placeholder="Data Inicial">
+        <input matInput [ngModel]="filtroDataInicial" type="date" [(ngModel)]="filtroDataInicial" placeholder="Data Inicial">
       </mat-form-field>
       <mat-form-field>
-        <input matInput [ngModel]="filtroDataFinal" type="date" (ngModelChange)="setDataFinal($event)" placeholder="Data Final">
+        <input matInput [ngModel]="filtroDataFinal" type="date" [(ngModel)]="filtroDataFinal" placeholder="Data Final">
       </mat-form-field>
+      <button id="filtrar-button" mat-raised-button (click)="buscarPedidos()">Filtrar</button>
       <span id="count-pedidos">Quantidade de pedidos: {{pedidos.length}}</span>
     </mat-card-content>
   </mat-card>

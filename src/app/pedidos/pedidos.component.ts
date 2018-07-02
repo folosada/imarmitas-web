@@ -8,6 +8,7 @@ import { Restaurante } from '../model/Restaurante';
 import { MatExpansionPanel, MatExpansionPanelHeader } from '@angular/material/expansion';
 import { Pedido } from '../model/Pedido';
 import { DateParserUtil } from '../../common/DateParserUtil';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-pedidos',
@@ -29,19 +30,11 @@ export class PedidosComponent implements OnInit {
     private snackBar: MatSnackBar) {
     this.restaurante = new Restaurante();
     this.restaurante.initialize(JSON.parse(localStorage.getItem('restaurante')));
-    this.buscarPedidos();
   }
 
   ngOnInit() {
-  }
-
-  setDataInicial(data) {
-    this.filtroDataInicial = data;
-    this.buscarPedidos();
-  }
-
-  setDataFinal(data) {
-    this.filtroDataFinal = data;
+    this.filtroDataFinal = moment().format('YYYY-MM-DD');
+    this.filtroDataInicial = moment().format('YYYY-MM-DD');
     this.buscarPedidos();
   }
 
