@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PedidosService } from '../service/pedidos/pedidos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-relatorio',
@@ -9,10 +10,10 @@ import { PedidosService } from '../service/pedidos/pedidos.service';
 })
 export class RelatorioComponent implements OnInit {
 
-  public anoFormControl = 0
-  public valores = {}
-  public total = 0
-  constructor(private pedidosService: PedidosService) { }
+  public anoFormControl = 0;
+  public valores = {};
+  public total = 0;
+  constructor(private router: Router, private pedidosService: PedidosService) { }
 
   ngOnInit() {
     this.anoFormControl = (new Date()).getFullYear();
@@ -56,5 +57,9 @@ export class RelatorioComponent implements OnInit {
         console.log("Error", JSON.stringify(error));
       }
     );
+  }
+
+  voltar() {
+    this.router.navigate(['/inicio']);
   }
 }
