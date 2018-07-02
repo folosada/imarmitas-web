@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverUrl: "https://imarmitas-server.herokuapp.com",  
+  serverUrl: "http://lafome.ddns.net:8080",
 };
