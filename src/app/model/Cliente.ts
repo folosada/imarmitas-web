@@ -28,7 +28,9 @@ export class Cliente extends AbstractPojo {
         this.image_file = object.image_file;
         this.usuario = new Usuario();
         this.usuario.initialize(object.usuario);
-        this.grupoCliente = new GrupoCliente();
-        this.grupoCliente.initialize(object.grupoCliente);
+        if (object.grupoCliente) {
+            this.grupoCliente = new GrupoCliente();
+            this.grupoCliente.initialize(object.grupoCliente);
+        }
     }
 }
