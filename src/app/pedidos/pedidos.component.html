@@ -26,7 +26,7 @@
         </mat-card-actions>
       </div>
       <mat-card-title>
-        <b>[{{pedido.cliente.grupoCliente.nome}}] - {{pedido.cliente.nome}} {{pedido.cliente.sobrenome}}</b>
+        <b>[{{pedido.grupoCliente.nome}}] - {{pedido.cliente.nome}} {{pedido.cliente.sobrenome}}</b>
       </mat-card-title>
       <mat-card-content>
         <b>Data do pedido:</b> {{getDataPedido(pedido.dataPedido) | date: 'dd/MM/yyyy'}}
@@ -44,12 +44,12 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div>
-              - Logradouro: {{pedido.cliente.grupoCliente.endereco.logradouro}}
-              <br>- Número: {{pedido.cliente.grupoCliente.endereco.numero}}
-              <br>- Complemento: {{pedido.cliente.grupoCliente.endereco.complemento}}
-              <br>- CEP: {{pedido.cliente.grupoCliente.endereco.cep}}
-              <br>- Cidade: {{pedido.cliente.grupoCliente.endereco.cidade}}
-              <br>- Estado: {{pedido.cliente.grupoCliente.endereco.estado}}
+              - Logradouro: {{pedido.grupoCliente.endereco.logradouro}}
+              <br>- Número: {{pedido.grupoCliente.endereco.numero}}
+              <br>- Complemento: {{pedido.grupoCliente.endereco.complemento}}
+              <br>- CEP: {{pedido.grupoCliente.endereco.cep}}
+              <br>- Cidade: {{pedido.grupoCliente.endereco.cidade}}
+              <br>- Estado: {{pedido.grupoCliente.endereco.estado}}
             </div>
           </mat-expansion-panel>
         </mat-accordion>

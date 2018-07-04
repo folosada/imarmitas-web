@@ -1,21 +1,22 @@
-import { AbstractPojo } from "./AbstractPojo";
-import { Cardapio } from "./Cardapio";
-import { Cliente } from "./Cliente";
-import { ItemPedido } from "./ItemPedido";
-import { DateParserUtil } from "../../common/DateParserUtil";
+import { AbstractPojo } from './AbstractPojo';
+import { Cardapio } from './Cardapio';
+import { Cliente } from './Cliente';
+import { ItemPedido } from './ItemPedido';
+import { GrupoCliente } from './GrupoCliente';
 
 export class Pedido extends AbstractPojo {
-    
-    dataPedido = null
-    descricao = null
-    formaPagamento = null
-    status = null
-    cardapio: Cardapio = null
-    cliente: Cliente = null
-    avaliacaoRestaurante = null
+
+    dataPedido = null;
+    descricao = null;
+    formaPagamento = null;
+    status = null;
+    cardapio: Cardapio = null;
+    cliente: Cliente = null;
+    avaliacaoRestaurante = null;
     itensPedido: ItemPedido[] = null;
-    valor = null
-    
+    grupoCliente: GrupoCliente = null;
+    valor = null;
+
     constructor() {
         super();
     }
@@ -32,6 +33,7 @@ export class Pedido extends AbstractPojo {
         this.cliente = new Cliente();
         this.cliente.initialize(object.cliente);
         this.avaliacaoRestaurante = object.avaliacaoRestaurante;
+        this.grupoCliente = object.grupoCliente;
         this.itensPedido = new Array<ItemPedido>();
         object.itensPedido.forEach(data => {
             let itemPedido: ItemPedido = new ItemPedido();
